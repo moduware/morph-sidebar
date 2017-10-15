@@ -11,9 +11,9 @@
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
     "web-component-tester": "Polymer/web-component-tester#^6.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0",
-    "morph-button": "../morph-button/",
-    "morph-shared-colors": "../morph-shared-colors",
-    "morph-view": "../morph-view/"
+    "morph-button": "https://github.com/nexpaq/morph-button/archive/0.0.1.zip",
+    "morph-shared-colors": "https://github.com/nexpaq/morph-shared-colors/archive/0.0.1.zip",
+    "morph-view": "https://github.com/nexpaq/morph-view/archive/0.0.1.zip"
   },
   "resolutions": {
     "polymer": "^2.0.0"

@@ -1,0 +1,27 @@
+{
+  "name": "morph-view",
+  "description": "View where we put all our elements",
+  "main": "morph-view.html",
+  "dependencies": {
+    "polymer": "Polymer/polymer#^2.0.0",
+    "morph-element": "../morph-element/"
+  },
+  "devDependencies": {
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
+    "web-component-tester": "Polymer/web-component-tester#^6.0.0",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
+  },
+  "resolutions": {
+    "polymer": "^2.0.0"
+  },
+  "_cacheHeaders": {
+    "ETag": "\"c7e2951c37d45e3f8b3468419ddf678156be3b04\"",
+    "Content-Length": "10144",
+    "Content-Type": "application/zip",
+    "Content-Disposition": "attachment; filename=morph-view-0.0.1.zip"
+  },
+  "_release": "e-tag:c7e2951c3",
+  "_source": "https://github.com/nexpaq/morph-view/archive/0.0.1.zip",
+  "_target": "*",
+  "_originalSource": "https://github.com/nexpaq/morph-view/archive/0.0.1.zip"
+}
