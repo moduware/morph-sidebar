@@ -4,8 +4,8 @@
   "main": "morph-sidebar.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
-    "morph-element": "../morph-element/",
-    "app-layout": "^2.0.1"
+    "app-layout": "^2.0.1",
+    "morph-element": "https://github.com/nexpaq/morph-element.git#master"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",

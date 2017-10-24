@@ -6,7 +6,10 @@
 
     <title>morph-sidebar demo</title>
 
+    <link rel="import" href="/bower_components/morph-button/index.html">
     <link rel="import" href="/bower_components/morph-view/morph-view.html">
+    <link rel="import" href="/bower_components/morph-sidebar/morph-sidebar.html" 
+          onerror="console.warn('Can\'t load button from bower_components, loading local version')">
     <link rel="import" href="../morph-sidebar.html">
 
     <style>
@@ -24,7 +27,7 @@
   </style>
   </head>
   <body>
-    <morph-view id="mainView"> 
+    <morph-view id="mainView" platform="ios"> 
       <h3>Android morph-sidebar demo</h3>
       <script>
         /**
@@ -66,9 +69,11 @@
     </morph-view>
     <morph-sidebar id="sidebarLeft" platform="android">
       <p>Left Panel content here</p>
+      <p>simulated Android platform with cover animation and shadow</p>
     </morph-sidebar>
-    <morph-sidebar side="right" id="sidebarRight">
+    <morph-sidebar side="right" id="sidebarRight" platform="ios">
       <p>Right Panel content here</p>
+      <p>simulated iOS platform with reveal animation</p>
     </morph-sidebar>
   </body>
 </html>
