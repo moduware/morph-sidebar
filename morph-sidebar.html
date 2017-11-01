@@ -54,7 +54,9 @@
       }
     </style>
 
-    <slot></slot>
+    <div id="contentContainer">
+      <slot></slot>
+    </div>
 
 
   </template>
@@ -68,7 +70,7 @@
      * @polymer
      * @demo morph-sidebar/demo/index.html
      */
-    class MorphSidebar extends MorphElement {
+    class MorphSidebar extends Polymer.GestureEventListeners(MorphElement) {
       static get is() { return 'morph-sidebar'; }
 
       static get properties() {
@@ -81,6 +83,12 @@
           open: {
             type: Boolean,
             value: false,
+            notify: true,
+            reflectToAttribute: true
+          },
+          track: {
+            type: Object,
+            value: [],
             notify: true,
             reflectToAttribute: true
           }
@@ -101,6 +109,24 @@
         this.set('open', false);
       }
 
+      getWidth() {
+        return this._savedWidth || this.$.contentContainer.offsetWidth;
+      }
+
+      _track(event) {
+        switch (event.detail.state) {
+          case 'start':
+            this._trackStart(event);
+            break;
+          case 'track':
+            this._trackMove(event);
+            break;
+          case 'end':
+            this._trackEnd(event);
+            break;
+        }
+      }
+
       ready() {
         super.ready();
 
@@ -113,6 +139,8 @@
             // gets the x coordinate of start of track event
             startPoint = e.detail.x;
           }
+
+          console.log('getWidth', this.getWidth());
 
           // detects end of tracking events
           if(e.detail.state == 'end') {
