@@ -109,6 +109,13 @@
         this.set('open', false);
       }
 
+      /**
+       * toggle open property open to close and close to open
+       */
+      toggle() {
+        this.open = !this.open;
+      }
+
       getWidth() {
         return this._savedWidth || this.$.contentContainer.offsetWidth;
       }
