@@ -93,6 +93,15 @@
             reflectToAttribute: true
           },
 
+          /**
+           * The computed, read-only position of the drawer on the screen ('left' or 'right').
+           */
+          position: {
+            type: String,
+            readOnly: true,
+            reflectToAttribute: true
+          },
+
           _translateOffset: 0,
           _trackDetails: null
         };
@@ -167,10 +176,7 @@
           // No longer need the track events after this method returns - allow them to be GC'd.
           var trackDetails = this._trackDetails;
           this._trackDetails = null;
-          this._flingDrawer(event, trackDetails);
-          if (this._drawerState === this._DRAWER_STATE.FLINGING) {
-            return;
-          }
+          
         }
         // If the drawer is not flinging, toggle the opened state based on the position of
         // the drawer.
@@ -180,14 +186,22 @@
         } else if (event.detail.dx > halfWidth) {
           this.opened = this.position === 'left';
         }
-        if (isInEndState) {
-          this.debounce('_resetDrawerState', this._resetDrawerState);
-        } else {
-          this.debounce('_resetDrawerState', this._resetDrawerState, this.transitionDuration);
-        }
+        
         this._styleTransitionDuration(this.transitionDuration);
         this._resetDrawerTranslate();
         this.style.visibility = '';
+      }
+
+      _translateDrawer(x) {
+        var drawerWidth = this.getWidth();
+        if (this.position === 'left') {
+          x = Math.max(-drawerWidth, Math.min(x, 0));
+          this.$.scrim.style.opacity = 1 + x / drawerWidth;
+        } else {
+          x = Math.max(0, Math.min(x, drawerWidth));
+          this.$.scrim.style.opacity = 1 - x / drawerWidth;
+        }
+        this.translate3d(x + 'px', '0', '0', this.$.contentContainer);
       }
 
       ready() {
