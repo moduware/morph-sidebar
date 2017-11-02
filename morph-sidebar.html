@@ -1,3 +1,4 @@
+<link rel="import" href="/bower_components/polymer/lib/utils/render-status.html">
 <link rel="import" href="/bower_components/polymer/lib/mixins/gesture-event-listeners.html"> <!-- import needed to use Polymer Gestures Mixin -->
 <link rel="import" href="/bower_components/morph-element/morph-element.html">
 
@@ -91,19 +92,7 @@
             value: [],
             notify: true,
             reflectToAttribute: true
-          },
-
-          /**
-           * The computed, read-only position of the drawer on the screen ('left' or 'right').
-           */
-          position: {
-            type: String,
-            readOnly: true,
-            reflectToAttribute: true
-          },
-
-          _translateOffset: 0,
-          _trackDetails: null
+          }
         };
       }
 
@@ -164,6 +153,10 @@
         // Disable transitions since style attributes will reflect user track events.
         this._styleTransitionDuration(0);
         this.style.visibility = 'visible';
+      }
+
+      _trackMove(event) {
+        this._translateDrawer(event.detail.dx + this._translateOffset);
       }
 
       _trackEnd(event) {
@@ -233,6 +226,17 @@
 
         });
       }
+
+      connectedCallback() {
+        super.connectedCallback();
+        console.log('my-element created!');
+        Polymer.RenderStatus.afterNextRender(this, function() {
+          Polymer.Gestures.addListener(this, 'track', '_track');
+          // this.setScrollDirection('y');
+        });
+      }
+
+
     }
 
     window.customElements.define(MorphSidebar.is, MorphSidebar);
