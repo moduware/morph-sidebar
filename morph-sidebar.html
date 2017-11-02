@@ -91,31 +91,39 @@
             value: [],
             notify: true,
             reflectToAttribute: true
-          }
+          },
+
+          _translateOffset: 0,
+          _trackDetails: null
         };
       }
 
       /**
-       * set open property to true use to open the sidebar
+       * Set open property to true use to open the sidebar
        */
       setOpen() {
         this.set('open', true);
       }
 
       /**
-       * set open property to false use to close the sidebar
+       * Set open property to false use to close the sidebar
        */
       setClosed() {
         this.set('open', false);
       }
 
       /**
-       * toggle open property open to close and close to open
+       * Toggle open property open to close and close to open
        */
       toggle() {
         this.open = !this.open;
       }
 
+      /**
+       * Gets the width of the sidebar.
+       *
+       * @return {number} The width of the sidebar in pixels.
+       */
       getWidth() {
         return this._savedWidth || this.$.contentContainer.offsetWidth;
       }
@@ -132,6 +140,54 @@
             this._trackEnd(event);
             break;
         }
+      }
+
+      _trackStart(event) {
+        this._drawerState = this._DRAWER_STATE.TRACKING;
+        var rect = this.$.contentContainer.getBoundingClientRect();
+        this._savedWidth = rect.width;
+        if (this.position === 'left') {
+          this._translateOffset = rect.left;
+        } else {
+          this._translateOffset = rect.right - window.innerWidth;
+        }
+        this._trackDetails = [];
+        // Disable transitions since style attributes will reflect user track events.
+        this._styleTransitionDuration(0);
+        this.style.visibility = 'visible';
+      }
+
+      _trackEnd(event) {
+        var x = event.detail.dx + this._translateOffset;
+        var drawerWidth = this.getWidth();
+        var isPositionLeft = this.position === 'left';
+        var isInEndState = isPositionLeft ? (x >= 0 || x <= -drawerWidth) :
+          (x <= 0 || x >= drawerWidth);
+        if (!isInEndState) {
+          // No longer need the track events after this method returns - allow them to be GC'd.
+          var trackDetails = this._trackDetails;
+          this._trackDetails = null;
+          this._flingDrawer(event, trackDetails);
+          if (this._drawerState === this._DRAWER_STATE.FLINGING) {
+            return;
+          }
+        }
+        // If the drawer is not flinging, toggle the opened state based on the position of
+        // the drawer.
+        var halfWidth = drawerWidth / 2;
+        if (event.detail.dx < -halfWidth) {
+          this.opened = this.position === 'right';
+        } else if (event.detail.dx > halfWidth) {
+          this.opened = this.position === 'left';
+        }
+        if (isInEndState) {
+          this.debounce('_resetDrawerState', this._resetDrawerState);
+        } else {
+          this.debounce('_resetDrawerState', this._resetDrawerState, this.transitionDuration);
+        }
+        this._styleTransitionDuration(this.transitionDuration);
+        this._resetDrawerTranslate();
+        this.style.visibility = '';
       }
 
       ready() {
