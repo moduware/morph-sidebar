@@ -87,10 +87,9 @@
             notify: true,
             reflectToAttribute: true
           },
-          track: {
-            type: Object,
-            value: [],
-            notify: true,
+          position: {
+            type: String,
+            readOnly: true,
             reflectToAttribute: true
           }
         };
@@ -129,19 +128,21 @@
       _track(event) {
         switch (event.detail.state) {
           case 'start':
+            console.log('start track');
             this._trackStart(event);
             break;
           case 'track':
+            console.log('tracking...');
             this._trackMove(event);
             break;
           case 'end':
+          console.log('end track');
             this._trackEnd(event);
             break;
         }
       }
 
       _trackStart(event) {
-        this._drawerState = this._DRAWER_STATE.TRACKING;
         var rect = this.$.contentContainer.getBoundingClientRect();
         this._savedWidth = rect.width;
         if (this.position === 'left') {
@@ -151,7 +152,7 @@
         }
         this._trackDetails = [];
         // Disable transitions since style attributes will reflect user track events.
-        this._styleTransitionDuration(0);
+        // this._styleTransitionDuration(0);
         this.style.visibility = 'visible';
       }
 
@@ -180,6 +181,8 @@
           this.opened = this.position === 'left';
         }
         
+        console.log('getWidth', this.getWidth()); 
+
         this._styleTransitionDuration(this.transitionDuration);
         this._resetDrawerTranslate();
         this.style.visibility = '';
@@ -189,18 +192,24 @@
         var drawerWidth = this.getWidth();
         if (this.position === 'left') {
           x = Math.max(-drawerWidth, Math.min(x, 0));
-          this.$.scrim.style.opacity = 1 + x / drawerWidth;
+          // this.$.scrim.style.opacity = 1 + x / drawerWidth;
         } else {
           x = Math.max(0, Math.min(x, drawerWidth));
-          this.$.scrim.style.opacity = 1 - x / drawerWidth;
+          // this.$.scrim.style.opacity = 1 - x / drawerWidth;
         }
         this.translate3d(x + 'px', '0', '0', this.$.contentContainer);
       }
+
+
+
+
 
       ready() {
         super.ready();
 
         let startPoint, endPoint, diff, travel;
+
+        Polymer.Gestures.addListener(this, 'track', '_track');
         
         // add gesture event listener to track touch swipe
         Polymer.Gestures.addListener(this, 'track', e => {
@@ -210,7 +219,7 @@
             startPoint = e.detail.x;
           }
 
-          console.log('getWidth', this.getWidth());
+          
 
           // detects end of tracking events
           if(e.detail.state == 'end') {
@@ -231,7 +240,7 @@
         super.connectedCallback();
         console.log('my-element created!');
         Polymer.RenderStatus.afterNextRender(this, function() {
-          Polymer.Gestures.addListener(this, 'track', '_track');
+          Polymer.Gestures.addListener(this, 'track', this._track);
           // this.setScrollDirection('y');
         });
       }
