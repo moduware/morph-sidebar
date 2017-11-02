@@ -184,7 +184,7 @@
         console.log('getWidth', this.getWidth()); 
 
         this._styleTransitionDuration(this.transitionDuration);
-        this._resetDrawerTranslate();
+        // this._resetDrawerTranslate();
         this.style.visibility = '';
       }
 
@@ -197,10 +197,17 @@
           x = Math.max(0, Math.min(x, drawerWidth));
           // this.$.scrim.style.opacity = 1 - x / drawerWidth;
         }
-        this.translate3d(x + 'px', '0', '0', this.$.contentContainer);
+
+        console.log(this);
+        // ToDo: find why this translate3d is not working
+        // this.translate3d(x + 'px', '0', '0', this.$.contentContainer);
       }
 
-
+      _styleTransitionDuration(duration) {
+        this.style.transitionDuration = duration + 'ms';
+        this.$.contentContainer.style.transitionDuration = duration + 'ms';
+        // this.$.scrim.style.transitionDuration = duration + 'ms';
+      }
 
 
 
