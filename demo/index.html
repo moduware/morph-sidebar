@@ -24,50 +24,18 @@
       morph-sidebar[platform="android"] {
         --sidebar-background-color: white; 
       }
+
+      #sidebarLeft {
+        border: 1px solid red;
+      }
   </style>
   </head>
   <body>
     <morph-view id="mainView" platform="ios"> 
       <h3>Android morph-sidebar demo</h3>
-      <script>
-        /**
-         * [toggleSidebar description]
-         *
-         * @param  {String} name takes left or right
-         */
-        function toggleSidebar(name) {
-          let sidebar = document.getElementById('sidebar' + name);
-          sidebar.open = !sidebar.open;
-        }
 
-        /**
-         * [openRightSidebarWithReveal description]
-         *
-         *  Set sidebar.open to true and view.reveal to 'right'
-         */
-        function openRightSidebarWithReveal() {
-          let view = document.getElementById('mainView');
-          let sidebar = document.getElementById('sidebarRight');
-          sidebar.open = true;
-          view.reveal = 'right';
-        }
-
-        function closeRightSidebarWithReveal() {
-          let view = document.getElementById('mainView');
-          view.removeAttribute('reveal');
-        }
-
-        document.addEventListener('DOMContentLoaded', function(event) {
-          document.getElementById('sidebarLeftToggler').addEventListener('click', () => toggleSidebar('Left'));
-          document.getElementById('sidebarRightToggler').addEventListener('click', openRightSidebarWithReveal);
-          document.getElementById('sidebarRight').addEventListener('open-changed', closeRightSidebarWithReveal);
-        });
-      </script>
-
-      <button id="sidebarLeftToggler">Toggle Left Sidebar</button>
-      <button id="sidebarRightToggler">Toggle Right Sidebar</button>
     </morph-view>
-    <morph-sidebar id="sidebarLeft" platform="android">
+    <morph-sidebar opened id="sidebarLeft" platform="android">
       <p>Left Panel content here</p>
       <p>simulated Android platform with cover animation and shadow</p>
     </morph-sidebar>
