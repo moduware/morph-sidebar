@@ -34,17 +34,6 @@
 
         static get properties() {
           return {
-            side: {
-              type: String,
-              value: "left",
-              reflectToAttribute: true
-            },
-            open: {
-              type: Boolean,
-              value: false,
-              notify: true,
-              reflectToAttribute: true
-            },
             position: {
               type: String,
               readOnly: true,
@@ -62,8 +51,7 @@
             let superClass = customElements.get('app-drawer');
             // subTemplate = customElements.get('app-drawer').template.cloneNode(true);
             subTemplate = superClass.template.cloneNode(true);
-            console.log('MySuperClass', subTemplate.content);
-
+            
             // here we will get the content of our <style> so we can insert them into the superclass <style>
             // note the added id="styles" in our template tag above
             const subStyle = Polymer.DomModule.import('morph-sidebar', 'template#styles').content;
@@ -76,28 +64,6 @@
           }
           return subTemplate;
         }
-
-        /**
-         * Set open property to true use to open the sidebar
-         */
-        setOpen() {
-          this.set('open', true);
-        }
-
-        /**
-         * Set open property to false use to close the sidebar
-         */
-        setClosed() {
-          this.set('open', false);
-        }
-
-        /**
-         * Toggle open property open to close and close to open
-         */
-        toggle() {
-          this.open = !this.open;
-        }
-
 
       }
 
