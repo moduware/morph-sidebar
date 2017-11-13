@@ -14,23 +14,16 @@
     <link rel="import" href="../morph-sidebar.html">
 
     <style>
-      body {
-        overflow-x: hidden;
-      }
 
       p {
         color: #6d6d72;
-      }
-      
-      morph-sidebar[platform="android"] {
-        --sidebar-background-color: white; 
       }
 
   </style>
   </head>
   <body>
     <app-drawer-layout>
-      <morph-sidebar opened id="sidebarLeft" platform="android" swipe-open >
+      <morph-sidebar opened swipe-open >
         <p>Left Panel content here</p>
         <p>simulated Android platform with cover animation and shadow</p>
       </morph-sidebar>
