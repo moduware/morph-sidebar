@@ -7,56 +7,7 @@
 <dom-module id="morph-sidebar">
   <template>
     <style>
-      :host {
-        --sidebar-width: 260px;
-        --sidebar-background-color: #e7e7e7;
-
-        background: var(--sidebar-background-color);
-        box-sizing: border-box;
-        display: block;
-        height: 100%;
-        overflow: auto;
-        position: absolute;
-        top: 0;
-        transform: translate3d(0,0,0);
-        /*width: var(--sidebar-width);*/
-        z-index: 1000;
-        -webkit-overflow-scrolling: touch;
-      }
-
-      :host([platform="ios"]) {
-        transition-duration: 400ms;
-      }
-
-      :host([platform="android"]) {
-        transition: 300ms;
-      }
-
-      :host([platform="android"][open]) {
-        /*box-shadow: 0 0 20px rgba(0,0,0,.5);*/
-      }
-
-      :host(.not-animated) {
-        transition: 0ms;
-      }
-
-      :host([side="left"]) {
-        left: 0;
-      }
-
-      :host([side="right"]) {
-        right: 0;
-      }
-
-      /*
-      :host([side="left"]:not([open])) {
-        transform: translate3d(-100%, 0, 0);
-      }
-
-      :host([side="right"]:not([open])) {
-        transform: translate3d(100%, 0, 0);
-      }*/
-
+      
     </style>
 
     <!-- app-drawer template goes here -->
