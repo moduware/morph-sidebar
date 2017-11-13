@@ -19,7 +19,7 @@
 
   <script>
     (function() {
-      let memoizedTemplate;
+      let subTemplate;
       /**
        * `morph-sidebar`
        * Sidebar that morphs for current mobile OS
@@ -53,21 +53,21 @@
         }
 
         static get template() {
-          if (!memoizedTemplate) {
+          if (!subTemplate) {
             // Retrieve this element's dom-module template
-            memoizedTemplate = Polymer.DomModule.import(this.is, 'template');
+            subTemplate = Polymer.DomModule.import(this.is, 'template');
 
             let MySuperClass = customElements.get('app-drawer');
             // Clone the contents of the superclass template
             let superTemplateContents = document.importNode(MySuperClass.template.content, true);
 
             // Insert the superclass contents
-            let sibling = memoizedTemplate.content.querySelector('#sibling');
-            // memoizedTemplate.content.insertBefore(superTemplateContents, footer);
+            let sibling = subTemplate.content.querySelector('#sibling');
+            // subTemplate.content.insertBefore(superTemplateContents, footer);
             // sibling.appendChild(superTemplateContents);
-            memoizedTemplate.content.insertBefore(superTemplateContents, sibling);
+            subTemplate.content.insertBefore(superTemplateContents, sibling);
           }
-          return memoizedTemplate;
+          return subTemplate;
         }
 
         /**
