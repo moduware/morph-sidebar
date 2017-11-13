@@ -5,15 +5,16 @@
 
 
 <dom-module id="morph-sidebar">
-  <template>
+  <template id="styles">
     <style>
+
+      :host {
+        --morph-sidebar-scrim-background: darkgray;
+        --app-drawer-scrim-background: var(--morph-sidebar-scrim-background);
       
+      }
+
     </style>
-
-    <!-- app-drawer template goes here -->
-    <div id="sibling">
-    </div>
-
 
   </template>
 
@@ -52,20 +53,26 @@
           };
         }
 
+        /**
+         * This will return our template inherited from superclass <app-drawer> with our styles inserted
+         */
         static get template() {
           if (!subTemplate) {
-            // Retrieve this element's dom-module template
-            subTemplate = Polymer.DomModule.import(this.is, 'template');
+            // first clone our superclass <app-drawer> template
+            let superClass = customElements.get('app-drawer');
+            // subTemplate = customElements.get('app-drawer').template.cloneNode(true);
+            subTemplate = superClass.template.cloneNode(true);
+            console.log('MySuperClass', subTemplate.content);
 
-            let MySuperClass = customElements.get('app-drawer');
-            // Clone the contents of the superclass template
-            let superTemplateContents = document.importNode(MySuperClass.template.content, true);
+            // here we will get the content of our <style> so we can insert them into the superclass <style>
+            // note the added id="styles" in our template tag above
+            const subStyle = Polymer.DomModule.import('morph-sidebar', 'template#styles').content;
 
-            // Insert the superclass contents
-            let sibling = subTemplate.content.querySelector('#sibling');
-            // subTemplate.content.insertBefore(superTemplateContents, footer);
-            // sibling.appendChild(superTemplateContents);
-            subTemplate.content.insertBefore(superTemplateContents, sibling);
+            // get the content of current style from superClass
+            const superStyle = subTemplate.content.querySelector('style');
+            
+            // append our added style at the bottom of the current style to get higher priority
+            superStyle.parentNode.appendChild(subStyle);
           }
           return subTemplate;
         }
@@ -94,7 +101,7 @@
 
       }
 
-      window.customElements.define(MorphSidebar.is, MorphSidebar);
+      customElements.define('morph-sidebar', MorphSidebar);
 
     })();
 
