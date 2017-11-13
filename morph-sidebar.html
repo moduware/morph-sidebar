@@ -19,7 +19,7 @@
         position: absolute;
         top: 0;
         transform: translate3d(0,0,0);
-        width: var(--sidebar-width);
+        /*width: var(--sidebar-width);*/
         z-index: 1000;
         -webkit-overflow-scrolling: touch;
       }
@@ -33,7 +33,7 @@
       }
 
       :host([platform="android"][open]) {
-        box-shadow: 0 0 20px rgba(0,0,0,.5);
+        /*box-shadow: 0 0 20px rgba(0,0,0,.5);*/
       }
 
       :host(.not-animated) {
@@ -48,17 +48,19 @@
         right: 0;
       }
 
+      /*
       :host([side="left"]:not([open])) {
         transform: translate3d(-100%, 0, 0);
       }
 
       :host([side="right"]:not([open])) {
         transform: translate3d(100%, 0, 0);
-      }
+      }*/
+
     </style>
 
-    <div id="container">
-      <!-- app-drawer template goes here -->
+    <!-- app-drawer template goes here -->
+    <div id="sibling">
     </div>
 
 
@@ -109,10 +111,10 @@
             let superTemplateContents = document.importNode(MySuperClass.template.content, true);
 
             // Insert the superclass contents
-            let footer = memoizedTemplate.content.querySelector('#container');
+            let sibling = memoizedTemplate.content.querySelector('#sibling');
             // memoizedTemplate.content.insertBefore(superTemplateContents, footer);
-            footer.appendChild(superTemplateContents);
-            
+            // sibling.appendChild(superTemplateContents);
+            memoizedTemplate.content.insertBefore(superTemplateContents, sibling);
           }
           return memoizedTemplate;
         }
