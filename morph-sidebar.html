@@ -10,7 +10,7 @@
       :host {
         --morph-sidebar-scrim-background: darkgray;
         --app-drawer-scrim-background: var(--morph-sidebar-scrim-background);
-      
+        
       }
 
     </style>
@@ -55,7 +55,19 @@
 
                 return 'unknown';
               }
-            }
+            },
+            transitionDuration: {
+              type: Number,
+              computed: 'computedTransitionDuration(platform)'
+            },
+            transitionDurationAndroid: {
+              type: Number,
+              value: 300
+            },
+            transitionDurationIos: {
+              type: Number,
+              value: 400
+            },
           };
         }
 
@@ -79,6 +91,15 @@
             superStyle.parentNode.appendChild(subStyle);
           }
           return subTemplate;
+        }
+
+        computedTransitionDuration(platform) {
+          if(platform == "android") {
+            return this.transitionDurationAndroid;
+          }
+          if(platform == "ios") {
+            return this.transitionDurationIos;
+          }
         }
 
       }
