@@ -31,6 +31,34 @@
        * @demo morph-sidebar/demo/index.html
        */
       class MorphSidebar extends AppDrawerSuperClass {
+        static get properties() {
+          return {
+            platform: {
+              type: String,
+              reflectToAttribute: true,
+              value: function() {
+                let userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+                // Windows Phone must come first because its UA also contains "Android"
+                if (/windows phone/i.test(userAgent)) {
+                  return 'windows-phone';
+                }
+
+                if (/android/i.test(userAgent)) {
+                  return 'android';
+                }
+
+                // iOS detection from: http://stackoverflow.com/a/9039885/177710
+                if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                  return 'ios';
+                }
+
+                return 'unknown';
+              }
+            }
+          };
+        }
+
         /**
          * This will return our template inherited from superclass <app-drawer> with our styles inserted
          */
