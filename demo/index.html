@@ -9,6 +9,8 @@
     <link rel="import" href="/bower_components/morph-button/index.html">
     <link rel="import" href="/bower_components/morph-view/morph-view.html">
     <link rel="import" href="/bower_components/app-layout/app-layout.html">
+    <link rel="import" href="/bower_components/app-layout/app-header-layout/app-header-layout.html">
+    <link rel="import" href="/bower_components/app-layout/app-header/app-header.html">
     <link rel="import" href="/bower_components/morph-sidebar/morph-sidebar.html" 
           onerror="console.warn('Can\'t load button from bower_components, loading local version')">
     <link rel="import" href="../morph-sidebar.html">
@@ -22,17 +24,26 @@
   </style>
   </head>
   <body>
-    <app-drawer-layout>
-      <morph-sidebar opened swipe-open >
+    <app-drawer-layout fullbleed force-narrow>
+
+      <morph-sidebar slot="drawer" opened swipe-open>
         <p>Left Panel content here</p>
         <p>simulated Android platform with cover animation and shadow</p>
       </morph-sidebar>
       
+      <app-header-layout>
+        <app-header slot="header">
+          <app-toolbar>
+            <button drawer-toggle>Toggle</button>
+            <div main-tittle>morph-sidebar</div>
+          </app-toolbar>
+        </app-header>
+      </app-header-layout>
+      
       <div>
-        main content
+        <h2 drawer-toggle>main content</h2>
       </div>
 
-      <button drawer-toggle>Toggle</button>
 
     </app-drawer-layout>
     
