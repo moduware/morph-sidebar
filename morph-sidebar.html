@@ -20,6 +20,8 @@
   <script>
     (function() {
       let subTemplate;
+
+      const AppDrawerSuperClass = customElements.get('app-drawer');
       /**
        * `morph-sidebar`
        * Sidebar that morphs for current mobile OS
@@ -28,19 +30,7 @@
        * @polymer
        * @demo morph-sidebar/demo/index.html
        */
-      class MorphSidebar extends customElements.get('app-drawer') {
-        static get is() { return 'morph-sidebar'; }
-
-        static get properties() {
-          return {
-            position: {
-              type: String,
-              readOnly: true,
-              reflectToAttribute: true
-            }
-          };
-        }
-
+      class MorphSidebar extends AppDrawerSuperClass {
         /**
          * This will return our template inherited from superclass <app-drawer> with our styles inserted
          */
