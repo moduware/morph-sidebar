@@ -10,7 +10,7 @@
       :host {
         --morph-sidebar-scrim-background: darkgray;
         --app-drawer-scrim-background: var(--morph-sidebar-scrim-background);
-        
+
       }
 
     </style>
@@ -30,32 +30,32 @@
        * @polymer
        * @demo morph-sidebar/demo/index.html
        */
-      class MorphSidebar extends AppDrawerSuperClass {
+      class MorphSidebar extends Polymer.mixinBehaviors(MorphElement, AppDrawerSuperClass) {
         static get properties() {
           return {
-            platform: {
-              type: String,
-              reflectToAttribute: true,
-              value: function() {
-                let userAgent = navigator.userAgent || navigator.vendor || window.opera;
-
-                // Windows Phone must come first because its UA also contains "Android"
-                if (/windows phone/i.test(userAgent)) {
-                  return 'windows-phone';
-                }
-
-                if (/android/i.test(userAgent)) {
-                  return 'android';
-                }
-
-                // iOS detection from: http://stackoverflow.com/a/9039885/177710
-                if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
-                  return 'ios';
-                }
-
-                return 'unknown';
-              }
-            },
+            // platform: {
+            //   type: String,
+            //   reflectToAttribute: true,
+            //   value: function() {
+            //     let userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            //
+            //     // Windows Phone must come first because its UA also contains "Android"
+            //     if (/windows phone/i.test(userAgent)) {
+            //       return 'windows-phone';
+            //     }
+            //
+            //     if (/android/i.test(userAgent)) {
+            //       return 'android';
+            //     }
+            //
+            //     // iOS detection from: http://stackoverflow.com/a/9039885/177710
+            //     if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+            //       return 'ios';
+            //     }
+            //
+            //     return 'unknown';
+            //   }
+            // },
             transitionDuration: {
               type: Number,
               computed: 'computedTransitionDuration(platform)'
@@ -79,14 +79,14 @@
             // first clone our superclass <app-drawer> template
             let superClass = customElements.get('app-drawer');
             subTemplate = superClass.template.cloneNode(true);
-            
+
             // here we will get the content of our <style> so we can insert them into the superclass <style>
             // note the added id="styles" in our template tag above
             const subStyle = Polymer.DomModule.import('morph-sidebar', 'template#styles').content;
 
             // get the content of current style from superClass
             const superStyle = subTemplate.content.querySelector('style');
-            
+
             // append our added style at the bottom of the current style to get higher priority
             superStyle.parentNode.appendChild(subStyle);
           }
