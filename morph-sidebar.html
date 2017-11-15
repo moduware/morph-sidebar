@@ -30,7 +30,7 @@
        * @polymer
        * @demo morph-sidebar/demo/index.html
        */
-      class MorphSidebar extends Polymer.mixinBehaviors(MorphElement, AppDrawerSuperClass) {
+      class MorphSidebar extends Polymer.mixinBehaviors([MorphElement], AppDrawerSuperClass) {
         static get properties() {
           return {
             transitionDuration: {
