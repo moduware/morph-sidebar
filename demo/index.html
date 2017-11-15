@@ -32,26 +32,39 @@
 
     <app-drawer-layout fullbleed force-narrow>
 
-      <morph-sidebar slot="drawer" opened swipe-open transition-duration-ios="500">
-        <p>Left Panel content here</p>
-        <p>simulated Android platform with cover animation and shadow</p>
+      <morph-sidebar slot="drawer" align="left" swipe-open>
+        <p>Left morph-sidebar</p>
+        <p>Simulated with cover animation and shadow for android. And no shadow if iOS.</p>
       </morph-sidebar>
+
       
       <app-header-layout>
         <app-header slot="header">
           <app-toolbar>
-            <button drawer-toggle>Toggle</button>
             <div main-tittle>morph-sidebar</div>
           </app-toolbar>
         </app-header>
       </app-header-layout>
       
       <div>
-        <h2 drawer-toggle>main content</h2>
+        <h4 drawer-toggle>Toggle Left Sidebar</h4>
       </div>
 
+      <app-drawer-layout force-narrow>
+
+        <morph-sidebar id="rightSidebar" slot="drawer" align="right" swipe-open transition-duration-ios="500">
+          <p>Right morph-sidebar</p>
+          <p>Simulated with cover animation and shadow for android. And no shadow if iOS.</p>
+        </morph-sidebar>
+
+        <div>
+          <h4 onclick="toggleRightDrawer()">Toggle Right Sidebar</h2>
+        </div>
+
+      </app-drawer-layout>
 
     </app-drawer-layout>
+
 
     <script>
       const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
@@ -65,8 +78,12 @@
         
       }
       
-      console.log('iOS', iOS);
+      toggleRightDrawer = function() {
+        var rightDrawer = document.getElementById('rightSidebar'); 
+        rightDrawer.toggle(); 
+      };
+
     </script>
-    
+
   </body>
 </html>
