@@ -56,6 +56,10 @@
               type: Number,
               value: 400
             },
+            transitionDurationWeb: {
+              type: Number,
+              value: 200
+            },
           };
         }
 
@@ -84,9 +88,10 @@
         computedTransitionDuration(platform) {
           if(platform == "android") {
             return this.transitionDurationAndroid;
-          }
-          if(platform == "ios") {
+          } else if(platform == "ios") {
             return this.transitionDurationIos;
+          } else {
+            return this.transitionDurationWeb;
           }
         }
 
