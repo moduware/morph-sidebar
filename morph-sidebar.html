@@ -8,9 +8,20 @@
     <style>
 
       :host {
+        --morph-sidebar-scrim-background-android: rgba(0, 0, 0, 0.2);
+        --morph-sidebar-scrim-background-ios: rgba(0, 0, 0, 0);
         --morph-sidebar-scrim-background: darkgray;
         --app-drawer-scrim-background: var(--morph-sidebar-scrim-background);
 
+      }
+
+      :host([platform="ios"]) #scrim {
+        background: var(--morph-sidebar-scrim-background-ios);
+        opacity: 0;
+      }
+
+      :host([platform="android"]) #scrim {
+        background: var(--morph-sidebar-scrim-background-android);
       }
 
     </style>
