@@ -10,7 +10,7 @@
       :host {
         --morph-sidebar-scrim-background-android: rgba(0, 0, 0, 0.2);
         --morph-sidebar-scrim-background-ios: rgba(0, 0, 0, 0);
-
+        
       }
 
       :host([platform="ios"]) #scrim {
@@ -20,6 +20,10 @@
 
       :host([platform="android"]) #scrim {
         --app-drawer-scrim-background: var(--morph-sidebar-scrim-background-android);
+      }
+
+      :host([platform="android"][opened]) #contentContainer {
+        box-shadow: 0 0 20px rgba(0,0,0,.5);
       }
 
     </style>
@@ -57,7 +61,7 @@
             transitionDurationWeb: {
               type: Number,
               value: 200
-            },
+            }
           };
         }
 

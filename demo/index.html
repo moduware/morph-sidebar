@@ -15,15 +15,21 @@
           onerror="console.warn('Can\'t load button from bower_components, loading local version')">
     <link rel="import" href="../morph-sidebar.html">
 
-    <style>
+    <style include="morph-sidebar">
 
       p {
         color: #6d6d72;
       }
 
-  </style>
+      .iOS-device {
+        background: #efeff4;
+      }
+
+    </style>
+
   </head>
   <body>
+
     <app-drawer-layout fullbleed force-narrow>
 
       <morph-sidebar slot="drawer" opened swipe-open transition-duration-ios="500">
@@ -46,6 +52,21 @@
 
 
     </app-drawer-layout>
+
+    <script>
+      const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+      window.onload = function() {
+        let drawerLayout = document.getElementsByTagName("APP-DRAWER-LAYOUT")[0];
+        
+        if(iOS == true) {
+          drawerLayout.setAttribute("class", "iOS-device");
+        }
+        
+      }
+      
+      console.log('iOS', iOS);
+    </script>
     
   </body>
 </html>
