@@ -27,7 +27,7 @@
 
     <test-fixture id="openSidebarFixture">
       <template>
-        <morph-sidebar opened side="right" platform="ios"></morph-sidebar>
+        <morph-sidebar opened align="right" platform="ios"></morph-sidebar>
       </template>
     </test-fixture>
 
@@ -58,7 +58,6 @@
           // assigning sidebar fixture for this context. This will automatically removed on the teardown phase of this test context 
           beforeEach(function() {
             sidebar = fixture('rightSidebarFixture');
-            style = getComputedStyle(sidebar);
             let contentContainerDiv = sidebar.root.querySelector('#contentContainer');
             contentContainerStyle = getComputedStyle(contentContainerDiv);
           });
@@ -72,7 +71,7 @@
         });
 
         // test for when open is true correct css are rendered
-        context('Setting the sidebar opened the html markup', function() {
+        context('Setting the sidebar opened in the html markup', function() {
           // declare variable for sidebar fixture in this context only and declare style variable for this fixture
           let sidebar, style;
 
@@ -80,21 +79,22 @@
           beforeEach(function() {
             sidebar = fixture('openSidebarFixture');
             // getting the computed style from the shadow DOM
-            style = getComputedStyle(sidebar);
+            let contentContainerDiv = sidebar.root.querySelector('#contentContainer');
+            contentContainerStyle = getComputedStyle(contentContainerDiv);
           });
 
-          xit('Will apply correct css styling to 2d transform matrix', function() {
+          it('Will apply correct css styling to 2d transform matrix', function() {
             // checking correct 2d transform matrix is applied on open
-            expect(sidebar.hasAttribute('open')).to.be.equal(true);
-            expect(style.transform).to.be.equal('matrix(1, 0, 0, 1, 0, 0)');
+            expect(sidebar.hasAttribute('opened')).to.be.equal(true);
+            expect(contentContainerStyle.transform).to.be.equal('matrix(1, 0, 0, 1, 0, 0)');
           });
 
 
-          xit('And removing the attribute in the HTML will apply correct css styling', function() {
+          it('And removing the attribute in the HTML will apply correct css styling', function() {
             // check that when open attribute is remove it will apply css changes
-            sidebar.removeAttribute('open');
-            expect(sidebar.hasAttribute('open')).to.be.equal(false);
-            expect(style.transform).to.be.equal('matrix(1, 0, 0, 1, 260, 0)');
+            sidebar.removeAttribute('opened');
+            expect(sidebar.hasAttribute('opened')).to.be.equal(false);
+            expect(contentContainerStyle.transform).to.be.equal('matrix(1, 0, 0, 1, 260, 0)');
           });
 
 
