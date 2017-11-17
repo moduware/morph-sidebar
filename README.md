@@ -108,7 +108,7 @@
 
   **Todo: test this two sidebar setup and give an example on the best way to use it in two different ways. One is the one below and the other is with `app-drawer-layout` nested setup**
   
-  - We may use 2 panels at the same time, one left and one right panel. `align` defaults to `left` when not specified. 
+  - We may use two (2) `<morph-sidebar>` panels at the same time, one left and one right panel. `align` defaults to `left` when not specified. 
 
     ```html
 
@@ -144,6 +144,53 @@
     </body>
 
     ```
+    
+  - We can also use two (2) `<morph-sidebar>` panels with `app-drawer-layout` 
+  
+  ```html
+  
+   <body>
+
+    <app-drawer-layout fullbleed force-narrow>
+
+      <morph-sidebar slot="drawer" align="left" swipe-open>
+        <p>Left morph-sidebar</p>
+        <p>Simulated with cover animation and shadow for android. And no shadow if iOS.</p>
+      </morph-sidebar>
+      
+      <div>
+        <h4 drawer-toggle>Toggle Left Sidebar</h4>
+      </div>
+
+      <app-drawer-layout force-narrow>
+
+        <morph-sidebar id="rightSidebar" slot="drawer" align="right" swipe-open transition-duration-ios="500">
+          <p>Right morph-sidebar</p>
+          <p>Simulated with cover animation and shadow for android. And no shadow if iOS.</p>
+          <p>This sidebar animation duration is change to 500</p>
+        </morph-sidebar>
+
+        <div>
+          <h4 onclick="toggleDrawer('right')">Toggle Right Sidebar</h2>
+        </div>
+
+      </app-drawer-layout>
+
+    </app-drawer-layout>
+
+
+    <script>
+      
+      toggleDrawer = function(name) {
+        var drawer = document.getElementById(name + 'Sidebar');
+        drawer.toggle(); 
+      };
+
+    </script>
+    
+  </body>
+  
+  ```
     
   **ToDo: Implement the reveal animation using this new `morph-sidebar`**
 
