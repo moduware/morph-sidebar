@@ -97,9 +97,9 @@
     ```
     
     
-  **ToDo: **
+  **ToDo: Give example of how to use with `app-drawer-layout`**
 
-  - We can wrap the whole content with our [**<morph-view>**][Morph View] component to make it work properly.
+  - We can wrap the whole content with [**app-drawer-layout**][app-drawer-layout] component to make it work with other `<app-layout>` elements like `<app-header>`.
 
     ```html
 
@@ -124,11 +124,11 @@
 
     ```
     
-    **ToDo: Implement the reveal animation using this new morph-sidebar**
+    **ToDo: Implement the reveal animation using this new `morph-sidebar`**
 
   - `<morph-sidebar>` has two animation when openning and closing. The default animation of the sidebar is `cover`. It covers the morph-view element when it opens. 
 
-  - The other animation is called `reveal` where [**<morph-view>**][Morph View] moves out and reveals the `<morph-sidebar>` under it. `<morph-view>` moves out of the way to accomodate the width of our sidebar. To use `reveal` we add reveal attribute to `<morph-view>` component.
+  - The other animation is called `reveal` where [**morph-view**][Morph View] moves out and reveals the `<morph-sidebar>` under it. `<morph-view>` moves out of the way to accomodate the width of our sidebar. To use `reveal` we add reveal attribute to `<morph-view>` component.
 
     ```html
 
