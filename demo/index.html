@@ -59,10 +59,11 @@
         <morph-sidebar id="rightSidebar" slot="drawer" align="right" swipe-open transition-duration-ios="500">
           <p>Right morph-sidebar</p>
           <p>Simulated with cover animation and shadow for android. And no shadow if iOS.</p>
+          <p>This sidebar animation duration is change to 500</p>
         </morph-sidebar>
 
         <div>
-          <h4 onclick="toggleRightDrawer()">Toggle Right Sidebar</h2>
+          <h4 onclick="toggleDrawer('right')">Toggle Right Sidebar</h2>
         </div>
 
       </app-drawer-layout>
@@ -82,9 +83,9 @@
         
       }
       
-      toggleRightDrawer = function() {
-        var rightDrawer = document.getElementById('rightSidebar'); 
-        rightDrawer.toggle(); 
+      toggleDrawer = function(name) {
+        var drawer = document.getElementById(name + 'Sidebar');
+        drawer.toggle(); 
       };
 
     </script>
