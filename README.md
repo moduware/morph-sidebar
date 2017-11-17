@@ -77,25 +77,6 @@
 
     2. **`opened`** - takes a Boolean value and use to indicate if the side bar is close or open. also used to toggle our sidebar from close to open and close again using javascript on the page
     
-
-  **Todo: test this two sidebar setup and give an example on the best way to use it**
-  
-  - We may use 2 panels at the same time, one left and one right panel. `align` defaults to `left` when not specified. 
-
-    ```html
-
-    <!-- left sidebar -->
-    <morph-sidebar id="sidebarLeft">
-      <p>Left Panel content here</p>
-    </morph-sidebar>
-
-    <!-- right panel -->
-    <morph-sidebar align="right" id="sidebarRight">
-      <p>Right Panel content here</p>
-    </morph-sidebar>
-
-    ```
-    
     
   **ToDo: Give example of how to use with `app-drawer-layout`**
 
@@ -124,7 +105,47 @@
 
     ```
     
-    **ToDo: Implement the reveal animation using this new `morph-sidebar`**
+
+  **Todo: test this two sidebar setup and give an example on the best way to use it in two different ways. One is the one below and the other is with `app-drawer-layout` nested setup**
+  
+  - We may use 2 panels at the same time, one left and one right panel. `align` defaults to `left` when not specified. 
+
+    ```html
+
+    <body>
+
+      <morph-sidebar id="leftSidebar" align="left" swipe-open>
+        <p>Left morph-sidebar</p>
+        <p>Simulated with cover animation and shadow for android. And no shadow if iOS.</p>
+      </morph-sidebar>
+
+      <morph-sidebar id="rightSidebar" align="right" swipe-open>
+        <p>Right morph-sidebar</p>
+        <p>Simulated with cover animation and shadow for android. And no shadow if iOS.</p>
+      </morph-sidebar>
+
+      <div>
+        <h4 onclick="toggleDrawer('left')">Toggle Left Sidebar</h4>
+      </div>
+
+      <div>
+        <h4 onclick="toggleDrawer('right')">Toggle Right Sidebar</h4>
+      </div>
+
+      <script>
+
+        toggleDrawer = function(name) {
+          var drawer = document.getElementById(name + 'Sidebar'); 
+          drawer.toggle(); 
+        };
+
+      </script>
+
+    </body>
+
+    ```
+    
+  **ToDo: Implement the reveal animation using this new `morph-sidebar`**
 
   - `<morph-sidebar>` has two animation when openning and closing. The default animation of the sidebar is `cover`. It covers the morph-view element when it opens. 
 
