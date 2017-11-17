@@ -71,44 +71,16 @@
 
   ### How to use our **<morph-sidebar>** component
 
-  - Our **`<morph-sidebar>`** has two properties that we are going to use to setup and use our sidebar
+  - Our **`<morph-sidebar>`** has properties that we can use to setup and use our sidebar
 
-    1. **`side`** - use to choose where to display sidebar, `left` or `right`. It is set to `left` by default when `side` is not added to HTML markup
+    1. **`align`** - use to choose where to display sidebar, `left` or `right`. It is set to `left` by default when `align` is not added to HTML markup. This is inherited from **`<app-drawer>`** element of 'app-layout'
 
-      ```javascript
+    2. **`opened`** - takes a Boolean value and use to indicate if the side bar is close or open. also used to toggle our sidebar from close to open and close again using javascript on the page
+    
 
-      static get properties() {
-        return {
-          side: {
-            type: String,
-            value: "left",
-            reflectToAttribute: true
-          },
-
-          // code omitted for brevity...
-        };
-      }
-      ```
-
-    2. **`open`** - takes a Boolean value and use to indicate if the side bar is close or open. also used to toggle our sidebar from close to open and close again using javascript on the page
-
-      ```javascript
-
-      static get properties() {
-        return {
-          // code omitted for brevity
-          open: {
-            type: Boolean,
-            value: false,
-            notify: true,
-            reflectToAttribute: true
-          }
-        };
-      }
-
-      ```
-
-  - We may use 2 panels at the same time, one left and one right panel. `side` defaults to `left` when not specified. 
+  **Todo: test this two sidebar setup and give an example on the best way to use it**
+  
+  - We may use 2 panels at the same time, one left and one right panel. `align` defaults to `left` when not specified. 
 
     ```html
 
@@ -118,13 +90,16 @@
     </morph-sidebar>
 
     <!-- right panel -->
-    <morph-sidebar side="right" id="sidebarRight">
+    <morph-sidebar align="right" id="sidebarRight">
       <p>Right Panel content here</p>
     </morph-sidebar>
 
     ```
+    
+    
+  **ToDo: **
 
-  - We need to wrap the whole body with our [**<morph-view>**][Morph View] component to make it work properly.
+  - We can wrap the whole content with our [**<morph-view>**][Morph View] component to make it work properly.
 
     ```html
 
@@ -138,20 +113,22 @@
       </morph-view>
 
       <!-- morph-sidebar should be outside morph-view and inside html body -->
-      <morph-sidebar id="sidebarLeft" platform="android">
+      <morph-sidebar id="sidebarLeft">
         <p>Left Panel content here</p>
       </morph-sidebar>
 
-      <morph-sidebar side="right" id="sidebarRight">
+      <morph-sidebar align="right" id="sidebarRight">
         <p>Right Panel content here</p>
       </morph-sidebar>
     </body>
 
     ```
+    
+    **ToDo: Implement the reveal animation using this new morph-sidebar**
 
   - `<morph-sidebar>` has two animation when openning and closing. The default animation of the sidebar is `cover`. It covers the morph-view element when it opens. 
 
-  - The other animation is called `reveal` where morph-sidebar moves in and morph-view slides with it. `<morph-view>` moves out of the way to accomodate the width of our sidebar. To use `reveal` we add reveal attribute to `<morph-view>` component.
+  - The other animation is called `reveal` where [**<morph-view>**][Morph View] moves out and reveals the `<morph-sidebar>` under it. `<morph-view>` moves out of the way to accomodate the width of our sidebar. To use `reveal` we add reveal attribute to `<morph-view>` component.
 
     ```html
 
@@ -167,13 +144,13 @@
     ```
 
 
-[Main Page]: https://github.com/nexpaq/polymorph-components
+[Main Page]: https://github.com/moduware/polymorph-components
 
 [WCT]: https://github.com/Polymer/web-component-tester  
 
 [Polymer Test]: https://www.polymer-project.org/2.0/docs/tools/tests
 
-[Main Page]: https://github.com/nexpaq/polymorph-components
+[Morph View]: https://github.com/moduware/morph-view
 
-[Morph View]: https://github.com/nexpaq/polymorph-components/tree/develop/morph-view
+[app-drawer-layout]: https://github.com/PolymerElements/app-layout/tree/master/app-drawer-layout
 
