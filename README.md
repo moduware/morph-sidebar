@@ -77,36 +77,49 @@
 
     2. **`opened`** - takes a Boolean value and use to indicate if the side bar is close or open. also used to toggle our sidebar from close to open and close again using javascript on the page
     
-    
-  **ToDo: Give example of how to use with `app-drawer-layout`**
-
-  - We can wrap the whole content with [**app-drawer-layout**][app-drawer-layout] component to make it work with other `<app-layout>` elements like `<app-header>`.
+  **ToDo: eaxmple using very basic usage of `morph-sidebar` panel**
+  
+  - We can wrap the whole content with [**app-drawer-layout**][app-drawer-layout] component to make it work with other `<app-layout>` elements like `<app-header>`. We can then use the `drawer-toggle` attribute and place them on any children of the `<app-drawer-layout>` and when click it toggles our sidebar open and close. 
 
     ```html
 
     <body>
-      <!-- morph-view should be inside html body -->
-      <morph-view id="mainView"> 
-        <h3><morph-sidebar> demo</h3>
+      
+      <app-drawer-layout fullbleed force-narrow>
 
-        <button id="sidebarLeftToggler">Toggle Left Sidebar</button>
-        <button id="sidebarRightToggler">Toggle Right Sidebar</button>
-      </morph-view>
+        <morph-sidebar slot="drawer" align="left" swipe-open>
+          <p>Left morph-sidebar</p>
+          <p>Simulated with cover animation and shadow for android. And no shadow if iOS.</p>
+        </morph-sidebar>
 
-      <!-- morph-sidebar should be outside morph-view and inside html body -->
-      <morph-sidebar id="sidebarLeft">
-        <p>Left Panel content here</p>
-      </morph-sidebar>
+        <app-header-layout>
+          <app-header slot="header">
+            <app-toolbar>
+              <div main-tittle>morph-sidebar</div>
+            </app-toolbar>
+          </app-header>
+        </app-header-layout>
+      
+        <div>
+          <h4 drawer-toggle>Toggle Left Sidebar</h4>
+        </div>
 
-      <morph-sidebar align="right" id="sidebarRight">
-        <p>Right Panel content here</p>
-      </morph-sidebar>
+      </app-drawer-layout>
+
+
+      <script>
+
+        toggleDrawer = function(name) {
+          var drawer = document.getElementById(name + 'Sidebar');
+          drawer.toggle(); 
+        };
+
+      </script>
+      
     </body>
 
     ```
     
-
-  **Todo: test this two sidebar setup and give an example on the best way to use it in two different ways. One is the one below and the other is with `app-drawer-layout` nested setup**
   
   - We may use two (2) `<morph-sidebar>` panels at the same time, one left and one right panel. `align` defaults to `left` when not specified. 
 
@@ -145,7 +158,7 @@
 
     ```
     
-  - We can also use two (2) `<morph-sidebar>` panels with `app-drawer-layout` 
+  - We can also use two (2) `<morph-sidebar>` panels with `app-drawer-layout` by doing a nested `app-drawer-layout` setup. We can use only the drawer-toggle attribute on the outer `app-drawer-layout` children. We need to use other ways to open/close the inner `<morph-sidebar>` (which is our right sidebar panel in this example), like using javascript for our example below. 
   
   ```html
   
