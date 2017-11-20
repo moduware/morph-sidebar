@@ -4,7 +4,7 @@
   "main": "morph-sidebar.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
-    "app-layout": "^2.0.1",
+    "app-layout": "^2.0.4",
     "morph-element": "https://github.com/nexpaq/morph-element.git#master"
   },
   "devDependencies": {

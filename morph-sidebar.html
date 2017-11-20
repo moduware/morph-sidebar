@@ -1,135 +1,108 @@
-<link rel="import" href="/bower_components/polymer/lib/mixins/gesture-event-listeners.html"> <!-- import needed to use Polymer Gestures Mixin -->
+<link rel="import" href="/bower_components/polymer/lib/utils/render-status.html">
 <link rel="import" href="/bower_components/morph-element/morph-element.html">
+<link rel="import" href="/bower_components/app-layout/app-drawer/app-drawer.html">
+
 
 <dom-module id="morph-sidebar">
-  <template>
+  <template id="styles">
     <style>
+
       :host {
-        --sidebar-width: 260px;
-        --sidebar-background-color: #e7e7e7;
-
-        background: var(--sidebar-background-color);
-        box-sizing: border-box;
-        display: block;
-        height: 100%;
-        overflow: auto;
-        position: absolute;
-        top: 0;
-        transform: translate3d(0,0,0);
-        width: var(--sidebar-width);
-        z-index: 1000;
-        -webkit-overflow-scrolling: touch;
+        --app-drawer-width: 260px;
+        
+        --morph-sidebar-scrim-background-android: rgba(0, 0, 0, 0.2);
+        --morph-sidebar-scrim-background-ios: rgba(0, 0, 0, 0);
+        
       }
 
-      :host([platform="ios"]) {
-        transition-duration: 400ms;
+      :host([platform="ios"]) #scrim {
+        --app-drawer-scrim-background: var(--custom-ios-scrim-background, var(--morph-sidebar-scrim-background-ios));
       }
 
-      :host([platform="android"]) {
-        transition: 300ms;
+      :host([platform="android"]) #scrim {
+        --app-drawer-scrim-background: var(--morph-sidebar-scrim-background-android);
       }
 
-      :host([platform="android"][open]) {
+      :host([platform="android"][opened]) #contentContainer {
         box-shadow: 0 0 20px rgba(0,0,0,.5);
       }
 
-      :host(.not-animated) {
-        transition: 0ms;
-      }
-
-      :host([side="left"]) {
-        left: 0;
-      }
-
-      :host([side="right"]) {
-        right: 0;
-      }
-
-      :host([side="left"]:not([open])) {
-        transform: translate3d(-100%, 0, 0);
-      }
-
-      :host([side="right"]:not([open])) {
-        transform: translate3d(100%, 0, 0);
-      }
     </style>
-
-    <slot></slot>
-
 
   </template>
 
   <script>
-    /**
-     * `morph-sidebar`
-     * Sidebar that morphs for current mobile OS
-     *
-     * @customElement
-     * @polymer
-     * @demo morph-sidebar/demo/index.html
-     */
-    class MorphSidebar extends MorphElement {
-      static get is() { return 'morph-sidebar'; }
+    (function() {
+      let subTemplate;
 
-      static get properties() {
-        return {
-          side: {
-            type: String,
-            value: "left",
-            reflectToAttribute: true
-          },
-          open: {
-            type: Boolean,
-            value: false,
-            notify: true,
-            reflectToAttribute: true
-          }
-        };
-      }
-
+      const AppDrawerSuperClass = customElements.get('app-drawer');
       /**
-       * set open property to true use to open the sidebar
+       * `morph-sidebar`
+       * Sidebar that morphs for current mobile OS
+       *
+       * @customElement
+       * @polymer
+       * @demo morph-sidebar/demo/index.html
        */
-      setOpen() {
-        this.set('open', true);
-      }
-
-      /**
-       * set open property to false use to close the sidebar
-       */
-      setClosed() {
-        this.set('open', false);
-      }
-
-      ready() {
-        super.ready();
-
-        let startPoint, endPoint, diff, travel;
-        
-        // add gesture event listener to track touch swipe
-        Polymer.Gestures.addListener(this, 'track', e => {
-          // detects tracking at the start of each tracking event
-          if(e.detail.state == 'start') {
-            // gets the x coordinate of start of track event
-            startPoint = e.detail.x;
-          }
-
-          // detects end of tracking events
-          if(e.detail.state == 'end') {
-            // gets the x coordinate of end of track event
-            endPoint = e.detail.x;
-            diff = startPoint - endPoint; // gets the difference between the start and end x coordinate
-            travel = Math.abs(diff); // gets the absolute value of the difference (positive values only)
-            if(travel > 10) {
-              // set open to false when travel is greater than 10
-              this.setClosed(); 
+      class MorphSidebar extends Polymer.mixinBehaviors([MorphElement], AppDrawerSuperClass) {
+        static get properties() {
+          return {
+            transitionDuration: {
+              type: Number,
+              computed: 'computedTransitionDuration(platform)'
+            },
+            transitionDurationAndroid: {
+              type: Number,
+              value: 300
+            },
+            transitionDurationIos: {
+              type: Number,
+              value: 400
+            },
+            transitionDurationWeb: {
+              type: Number,
+              value: 200
             }
+          };
+        }
+
+        /**
+         * This will return our template inherited from superclass <app-drawer> with our styles inserted
+         */
+        static get template() {
+          if (!subTemplate) {
+            // first clone our superclass <app-drawer> template
+            let superClass = customElements.get('app-drawer');
+            subTemplate = superClass.template.cloneNode(true);
+
+            // here we will get the content of our <style> so we can insert them into the superclass <style>
+            // note the added id="styles" in our template tag above
+            const subStyle = Polymer.DomModule.import('morph-sidebar', 'template#styles').content;
+
+            // get the content of current style from superClass
+            const superStyle = subTemplate.content.querySelector('style');
+
+            // append our added style at the bottom of the current style to get higher priority
+            superStyle.parentNode.appendChild(subStyle);
           }
+          return subTemplate;
+        }
 
-        });
+        computedTransitionDuration(platform) {
+          if(platform == "android") {
+            return this.transitionDurationAndroid;
+          } else if(platform == "ios") {
+            return this.transitionDurationIos;
+          } else {
+            return this.transitionDurationWeb;
+          }
+        }
+
       }
-    }
 
-    window.customElements.define(MorphSidebar.is, MorphSidebar);
+      customElements.define('morph-sidebar', MorphSidebar);
+
+    })();
+
   </script>
 </dom-module>
