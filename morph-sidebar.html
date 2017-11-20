@@ -12,15 +12,15 @@
         
         --morph-sidebar-scrim-background-android: rgba(0, 0, 0, 0.2);
         --morph-sidebar-scrim-background-ios: rgba(0, 0, 0, 0);
-        --custom-morph-sidebar-scrim-background-ios
+        
       }
 
       :host([platform="ios"]) #scrim {
-        --app-drawer-scrim-background: var(--custom-morph-sidebar-scrim-background-ios, var (--morph-sidebar-scrim-background-ios);
+        --app-drawer-scrim-background: var(--custom-ios-scrim-background, var(--morph-sidebar-scrim-background-ios));
       }
 
       :host([platform="android"]) #scrim {
-        --app-drawer-scrim-background: var(--custom-morph-sidebar-scrim-background-android, var(--morph-sidebar-scrim-background-android));
+        --app-drawer-scrim-background: var(--morph-sidebar-scrim-background-android);
       }
 
       :host([platform="android"][opened]) #contentContainer {
