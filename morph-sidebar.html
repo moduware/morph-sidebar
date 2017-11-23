@@ -2,6 +2,7 @@
 <link rel="import" href="/bower_components/morph-element/morph-element.html">
 <link rel="import" href="/bower_components/app-layout/app-drawer/app-drawer.html">
 <link rel="import" href="/bower_components/app-layout/app-layout.html">
+<link rel="import" href="../morph-builder/app-drawer-morph-element.html">
 
 
 <dom-module id="morph-sidebar">
@@ -36,19 +37,19 @@
     (function() {
       let subTemplate;
 
+      
       const AppDrawerSuperClass = customElements.get('app-drawer');
-      const SuperWrapper = Polymer.mixinBehaviors([MorphSidebar], AppDrawerSuperClass);
+
       /**
        * `morph-sidebar`
        * A navigation drawer that can slide in from the left or right and that morphs for current mobile OS
        *
        * @customElement
        * @polymer
-       * @element morph-sidebar
-       * @extends  app-drawer
+       * @extends AppDrawerMorphElement
        * @demo morph-sidebar/demo/index.html
        */
-      class MorphSidebar extends Polymer.mixinBehaviors([MorphSidebar], AppDrawerSuperClass) {
+      class MorphSidebar extends Polymer.mixinBehaviors([MorphElement], AppDrawerSuperClass) {
         static get properties() {
           return {
             transitionDuration: {
