@@ -8,6 +8,14 @@ For the information about how to clone the desired repository, running the local
 
 ## Usage Summary
 
+- Here is a quick demo of `<morph-sidebar>`
+
+<p align="center">This is an <kbd>iOS device</kbd> demo on the left... <kbd>vs</kbd> an <kbd>Android device</kbd> demo on the right</p>
+
+<p align="center">
+  <kbd><img src="https://user-images.githubusercontent.com/9694368/33252116-2c40f622-d390-11e7-9041-6a628c657f9e.png" alt="Morph Sidebar element" /></kbd>
+  
+  
   ### How to use our **<morph-sidebar>** component
 
   - Our **`<morph-sidebar>`** has properties that we can use to setup and use our sidebar
