@@ -5,7 +5,7 @@
   "dependencies": {
     "polymer": "Polymer/polymer#^2.0.0",
     "app-layout": "^2.0.4",
-    "morph-element": "https://github.com/nexpaq/morph-element.git#master"
+    "morph-element": "https://github.com/nexpaq/morph-element.git#develop"
   },
   "devDependencies": {
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^2.0.0",
