@@ -1,30 +1,58 @@
-# \<morph-sidebar\>
+## &lt;morph-sidebar&gt;
 
-  Sidebar that morphs for current mobile OS
+Sidebar that morphs for current mobile OS.
 
 ## Getting Started:
 For the information about how to clone the desired repository, running the local server and testing, please refer to this [link](https://github.com/moduware/polymorph-components/blob/master/INFO.md).
 
 
-## Usage Summary
+## Demo
 
 - Here is a quick demo of `<morph-sidebar>`
 
-<p align="center">This is an <kbd>iOS device</kbd> demo on the left... <kbd>vs</kbd> an <kbd>Android device</kbd> demo on the right</p>
+  <p>On IOS platform;</p>
 
 <p align="center">
-  <kbd><img src="demo-images/demo.png" alt="Morph Sidebar element" /></kbd>
+  <img src="demo-images/demo-ios.gif" alt="Morph Sidebar element" />
+
+  <p>On Android platform;</p>
+
+<p align="center">
+  <img src="demo-images/demo-android.gif" alt="Morph Sidebar element" />
 
 
-  ### How to use our **<morph-sidebar>** component
+## Styling
 
-  - Our **`<morph-sidebar>`** has properties that we can use to setup and use our sidebar
+  -For Android platform;
 
-    1. **`align`** - use to choose where to display sidebar, `left` or `right`. It is set to `left` by default when `align` is not added to HTML markup. This is inherited from **`<app-drawer>`** element of 'app-layout'
+  Custom property                  | Description                            | Default
+  ---------------------------------|----------------------------------------|--------------------
+  `--app-drawer-width`             | Width of the app drawer                | 260px
+  `--morph-sidebar-scrim-background-android`  | Background color for scrim  | rgba(0, 0, 0, 0.2)
+  `--app-drawer-scrim-background`       | App-drawer scrim color        | var(--morph-sidebar-scrim-background-android)
 
-    2. **`opened`** - takes a Boolean value and use to indicate if the side bar is close or open. also used to toggle our sidebar from close to open and close again using javascript on the page
+  -For IOS platform;
 
-  **ToDo: eaxmple using very basic usage of `morph-sidebar` panel**
+  Custom property                  | Description                            | Default
+  ---------------------------------|----------------------------------------|--------------------
+  `--app-drawer-width`             | Width of the app drawer                | 260px
+  `--morph-sidebar-scrim-background-ios`  | Background color for scrim  | rgba(0, 0, 0, 0)
+  `--app-drawer-scrim-background`       | App-drawer scrim color        | var(--morph-sidebar-scrim-background-ios)
+
+
+## Attributes
+
+  | Custom Attribute |   Type  | Description                                                                                                                      | Default     |
+  |:----------------:|:-------:|----------------------------------------------------------------------------------------------------------------------------------|-------------|
+  |  **`align`**  | String  | Assigns where to display side bar.<br> `left` or `right`| **`left`**  |
+  |    **`opened`**   | Boolean | Indicates if the side bar is close or open | **`false`**      |
+  |  **`transition-duration-ios`**  | String  | Transition of side bar opening in ios | **`400`**  |
+  |    **`transition-duration-android`**   | String | Transition of side bar opening in android | **`300`**  |  
+  |    **`transition-duration-web`**   | String | Transition of side bar opening in web | **`200`**  |   
+
+
+
+## How to use our **`<morph-sidebar>`** component
 
   - We can wrap the whole content with [**app-drawer-layout**][app-drawer-layout] component to make it work with other `<app-layout>` elements like `<app-header>`. We can then use the `drawer-toggle` attribute and place them on any children of the `<app-drawer-layout>` and when click it toggles our sidebar open and close.
 
@@ -154,9 +182,9 @@ For the information about how to clone the desired repository, running the local
 
   **ToDo: Implement the reveal animation using this new `morph-sidebar`**
 
-  - `<morph-sidebar>` has two animation when openning and closing. The default animation of the sidebar is `cover`. It covers the morph-view element when it opens.
+  - `<morph-sidebar>` has two animation when opening and closing. The default animation of the sidebar is `cover`. It covers the morph-view element when it opens.
 
-  - The other animation is called `reveal` where [**morph-view**][Morph View] moves out and reveals the `<morph-sidebar>` under it. `<morph-view>` moves out of the way to accomodate the width of our sidebar. To use `reveal` we add reveal attribute to `<morph-view>` component.
+  - The other animation is called `reveal` where [**morph-view**][Morph View] moves out and reveals the `<morph-sidebar>` under it. `<morph-view>` moves out of the way to accommodate the width of our sidebar. To use `reveal` we add reveal attribute to `<morph-view>` component.
 
     ```html
 
@@ -171,12 +199,6 @@ For the information about how to clone the desired repository, running the local
 
     ```
 
-
-[Main Page]: https://github.com/moduware/polymorph-components
-
-[WCT]: https://github.com/Polymer/web-component-tester  
-
-[Polymer Test]: https://www.polymer-project.org/2.0/docs/tools/tests
 
 [Morph View]: https://github.com/moduware/morph-view
 

@@ -11,7 +11,7 @@
     <link rel="import" href="/bower_components/app-layout/app-layout.html">
     <link rel="import" href="/bower_components/app-layout/app-header-layout/app-header-layout.html">
     <link rel="import" href="/bower_components/app-layout/app-header/app-header.html">
-    <link rel="import" href="/bower_components/morph-sidebar/morph-sidebar.html" 
+    <link rel="import" href="/bower_components/morph-sidebar/morph-sidebar.html"
           onerror="console.warn('Can\'t load button from bower_components, loading local version')">
     <link rel="import" href="../morph-sidebar.html">
 
@@ -19,6 +19,11 @@
 
       p {
         color: #6d6d72;
+        text-align: center;
+        padding: 3px;
+      }
+      h4 {
+        padding-left: 15px;
       }
 
       .iOS-device {
@@ -41,15 +46,15 @@
         <p>Simulated with cover animation and shadow for android. And no shadow if iOS.</p>
       </morph-sidebar>
 
-      
+
       <app-header-layout>
         <app-header slot="header">
           <app-toolbar>
-            <div main-tittle>morph-sidebar</div>
+            <div main-tittle>Morph-sidebar demo</div>
           </app-toolbar>
         </app-header>
       </app-header-layout>
-      
+
       <div>
         <h4 drawer-toggle>Toggle Left Sidebar</h4>
       </div>
@@ -76,16 +81,16 @@
 
       window.onload = function() {
         let drawerLayout = document.getElementsByTagName("APP-DRAWER-LAYOUT")[0];
-        
+
         if(iOS == true) {
           drawerLayout.setAttribute("class", "iOS-device");
         }
-        
+
       }
-      
+
       toggleDrawer = function(name) {
         var drawer = document.getElementById(name + 'Sidebar');
-        drawer.toggle(); 
+        drawer.toggle();
       };
 
     </script>
