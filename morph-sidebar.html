@@ -11,10 +11,10 @@
 
       :host {
         --app-drawer-width: 260px;
-        
+
         --morph-sidebar-scrim-background-android: rgba(0, 0, 0, 0.2);
         --morph-sidebar-scrim-background-ios: rgba(0, 0, 0, 0);
-        
+
       }
 
       :host([platform="ios"]) #scrim {
@@ -37,7 +37,7 @@
     (function() {
       let subTemplate;
 
-      
+
       const AppDrawerSuperClass = customElements.get('app-drawer');
 
       /**
@@ -74,7 +74,7 @@
 
         /**
          * This will return our template inherited from superclass <app-drawer> with our styles inserted
-         */
+         */      
         static get template() {
           if (!subTemplate) {
             // first clone our superclass <app-drawer> template
@@ -94,6 +94,13 @@
           return subTemplate;
         }
 
+
+        /**
+         * computedTransitionDuration - Sets the transition duration based on the platform.
+         *
+         * @param  {String} platform current platform
+         * @return {Number}          returns the appropriate transitionDuration based on platform
+         */
         computedTransitionDuration(platform) {
           if(platform == "android") {
             return this.transitionDurationAndroid;
