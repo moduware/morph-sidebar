@@ -1,25 +1,30 @@
-## &lt;morph-sidebar&gt;
+# morph-sidebar
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) [![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/PolymerElements/paper-progress)
 
 Sidebar that morphs for current mobile OS.
 
-## Getting Started:
-For the information about how to clone the desired repository, running the local server and testing, please refer to this [link](https://github.com/moduware/polymorph-components/blob/master/INFO.md).
+`morph-sidebar` component changes its appearance based on the whether the platform or device is IOS or Android.
 
+## Getting Started
+
+For the information about how to clone the desired repository, running the local server and testing, please refer to Polymorph elements getting started docs at the end of this repository.
 
 ## Demo
 
 - Here is a quick demo of `<morph-sidebar>`
 
-  <p>On IOS platform;</p>
+  <p>On IOS platform</p>
 
-<p align="center">
-  <img src="demo-images/demo-ios.gif" alt="Morph Sidebar element" />
+  <p align="center">
+    <img src="demo-images/demo-ios.gif" alt="Morph Sidebar element" />
+  </p>
 
-  <p>On Android platform;</p>
+  <p>On Android platform</p>
 
-<p align="center">
-  <img src="demo-images/demo-android.gif" alt="Morph Sidebar element" />
-
+  <p align="center">
+    <img src="demo-images/demo-android.gif" alt="Morph Sidebar element" />
+  </p>
 
 ## Styling
 
@@ -39,7 +44,6 @@ For the information about how to clone the desired repository, running the local
   `--morph-sidebar-scrim-background-ios`  | Background color for scrim  | rgba(0, 0, 0, 0)
   `--app-drawer-scrim-background`       | App-drawer scrim color        | var(--morph-sidebar-scrim-background-ios)
 
-
 ## Attributes
 
   | Custom Attribute |   Type  | Description                                                                                                                      | Default     |
@@ -50,11 +54,9 @@ For the information about how to clone the desired repository, running the local
   |    **`transition-duration-android`**   | String | Transition of side bar opening in android | **`300`**  |  
   |    **`transition-duration-web`**   | String | Transition of side bar opening in web | **`200`**  |   
 
-
-
 ## How to use our **`<morph-sidebar>`** component
 
-  - We can wrap the whole content with [**app-drawer-layout**][app-drawer-layout] component to make it work with other `<app-layout>` elements like `<app-header>`. We can then use the `drawer-toggle` attribute and place them on any children of the `<app-drawer-layout>` and when click it toggles our sidebar open and close.
+- We can wrap the whole content with [**app-drawer-layout**][app-drawer-layout] component to make it work with other `<app-layout>` elements like `<app-header>`. We can then use the `drawer-toggle` attribute and place them on any children of the `<app-drawer-layout>` and when click it toggles our sidebar open and close.
 
     ```html
 
@@ -81,7 +83,6 @@ For the information about how to clone the desired repository, running the local
 
       </app-drawer-layout>
 
-
       <script>
 
         toggleDrawer = function(name) {
@@ -95,8 +96,7 @@ For the information about how to clone the desired repository, running the local
 
     ```
 
-
-  - We may use two (2) `<morph-sidebar>` panels at the same time, one left and one right panel. `align` defaults to `left` when not specified.
+- We may use two (2) `<morph-sidebar>` panels at the same time, one left and one right panel. `align` defaults to `left` when not specified.
 
     ```html
 
@@ -166,7 +166,6 @@ For the information about how to clone the desired repository, running the local
 
     </app-drawer-layout>
 
-
     <script>
 
       toggleDrawer = function(name) {
@@ -199,7 +198,12 @@ For the information about how to clone the desired repository, running the local
 
     ```
 
-
 [Morph View]: https://github.com/moduware/morph-view
 
 [app-drawer-layout]: https://github.com/PolymerElements/app-layout/tree/master/app-drawer-layout
+
+## Further help
+
+For more information on how to install and run test please go here - [Polymorph elements getting started]
+
+[Polymorph elements getting started]: https://github.com/moduware/polymorph-components/blob/master/INFO.md
