@@ -185,7 +185,7 @@ For the information about how to clone the desired repository, running the local
 
   - The other animation is called `reveal` where [**morph-view**][Morph View] moves out and reveals the `<morph-sidebar>` under it. `<morph-view>` moves out of the way to accommodate the width of our sidebar. To use `reveal` we add reveal attribute to `<morph-view>` component.
 
-    ```html
+    ```javascript
 
     function closeRightSidebarWithReveal() {
       let view = document.getElementById('mainView');
