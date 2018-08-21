@@ -1,8 +1,7 @@
-<link rel="import" href="../polymer/lib/utils/render-status.html">
-<link rel="import" href="../morph-element/morph-element.html">
 <link rel="import" href="../app-layout/app-drawer/app-drawer.html">
+<link rel="import" href="../morph-element/morph-element.html">
+<link rel="import" href="../polymer/lib/utils/render-status.html">
 <link rel="import" href="../app-layout/app-layout.html">
-<!-- <link rel="import" href="../morph-builder/app-drawer-morph-element.html"> -->
 
 
 <dom-module id="morph-sidebar">
@@ -37,7 +36,6 @@
     (function() {
       let subTemplate;
 
-
       const AppDrawerSuperClass = customElements.get('app-drawer');
 
       /**
@@ -46,9 +44,10 @@
        *
        * @customElement
        * @polymer
-       * @demo morph-sidebar/demo/index.html
+       * @inherit AppDrawerSuperClass
+       * @demo demo/index.html
        */
-      class MorphSidebar extends MorphElement(Polymer.Element) {
+      class MorphSidebar extends MorphElement(AppDrawerSuperClass) {
         static get properties() {
           return {
             transitionDuration: {
