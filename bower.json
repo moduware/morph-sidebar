@@ -14,8 +14,5 @@
     "morph-button": "https://github.com/moduware/morph-button.git#master",
     "morph-shared-colors": "https://github.com/moduware/morph-shared-colors.git#master",
     "morph-view": "https://github.com/moduware/morph-view.git#master"
-  },
-  "resolutions": {
-    "polymer": "^2.0.0"
   }
 }
