@@ -6,10 +6,10 @@
 
     <title>morph-sidebar test</title>
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../node_modules/@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+    <script src="../node_modules/wct-browser-legacy/browser.js"></script>
 
-    <link rel="import" href="../morph-sidebar.html">
+    <script type="module" src="../morph-sidebar.js"></script>
   </head>
   <body>
 
@@ -31,7 +31,8 @@
       </template>
     </test-fixture>
 
-    <script>
+    <script type="module">
+
       describe('<morph-sidebar>', function() {
         // testing for default properties present
         context('Default Sidebar Property Test', function() {
@@ -53,7 +54,7 @@
 
         // testing for setting side property reflects correctly
         context('Set Sidebar property align = right', function() {
-           // declare variable for sidebar in this context only
+          // declare variable for sidebar in this context only
           let sidebar, contentContainerStyle;
           // assigning sidebar fixture for this context. This will automatically removed on the teardown phase of this test context 
           beforeEach(function() {
@@ -73,7 +74,7 @@
         // test for when open is true correct css are rendered
         context('Setting the sidebar opened in the html markup', function() {
           // declare variable for sidebar fixture in this context only and declare style variable for this fixture
-          let sidebar, style;
+          let sidebar, style, contentContainerStyle;
 
           // assigning sidebar fixture. This will be remove automatically on the teardown phase of this test context
           beforeEach(function() {
@@ -101,6 +102,7 @@
         });
 
       });
+
     </script>
 
   </body>

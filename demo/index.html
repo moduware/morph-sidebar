@@ -6,12 +6,12 @@
 
     <title>morph-sidebar demo</title>
 
-    <link rel="import" href="../../morph-button/index.html">
-    <link rel="import" href="../../morph-view/morph-view.html">
-    <link rel="import" href="../../app-layout/app-layout.html">
-    <link rel="import" href="../../app-layout/app-header-layout/app-header-layout.html">
-    <link rel="import" href="../../app-layout/app-header/app-header.html">
-    <link rel="import" href="../morph-sidebar.html">
+    <script type="module" src="../node_modules/morph-button/morph-button.js"></script>
+    <script type="module" src="../node_modules/morph-view/morph-view.js"></script>
+    <script type="module" src="../node_modules/@polymer/app-layout/app-layout.js"></script>
+    <script type="module" src="../node_modules/@polymer/app-layout/app-header-layout/app-header-layout.js"></script>
+    <script type="module" src="../node_modules/@polymer/app-layout/app-header/app-header.js"></script>
+    <script type="module" src="../morph-sidebar.js"></script>
 
     <style>
 
@@ -74,8 +74,8 @@
     </app-drawer-layout>
 
 
-    <script>
-      const iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+    <script type="module">
+      var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
       window.onload = function() {
         let drawerLayout = document.getElementsByTagName("APP-DRAWER-LAYOUT")[0];
@@ -86,11 +86,10 @@
 
       }
 
-      toggleDrawer = function(name) {
+      window.toggleDrawer = function (name) {
         var drawer = document.getElementById(name + 'Sidebar');
         drawer.toggle();
       };
-
     </script>
 
   </body>
