@@ -17,13 +17,13 @@ For the information about how to clone the desired repository, running the local
   <p>On IOS platform</p>
 
   <p align="center">
-    <img src="demo-images/demo-ios.gif" alt="Morph Sidebar element" />
+    <img src="https://github.com/moduware/morph-sidebar/blob/master/demo-images/demo-ios.gif?raw=true" alt="Morph Sidebar element" />
   </p>
 
   <p>On Android platform</p>
 
   <p align="center">
-    <img src="demo-images/demo-android.gif" alt="Morph Sidebar element" />
+    <img src="https://github.com/moduware/morph-sidebar/blob/master/demo-images/demo-android.gif?raw=true" alt="Morph Sidebar element" />
   </p>
 
 ## Styling
