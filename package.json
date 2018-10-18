@@ -21,6 +21,7 @@
     "wct-browser-legacy": "^1.0.1",
     "@webcomponents/webcomponentsjs": "^2.0.0",
     "@moduware/morph-button": "^1.0.0",
-    "@moduware/morph-view": "^1.0.0"
+    "@moduware/morph-view": "^1.0.0",
+    "wct-istanbub": "^0.2.7"
   }
 }

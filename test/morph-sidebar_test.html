@@ -31,6 +31,12 @@
       </template>
     </test-fixture>
 
+    <test-fixture id="nonMobileSidebarFixture">
+      <template>
+        <morph-sidebar opened align="left" platform="unknown"></morph-sidebar>
+      </template>
+    </test-fixture>
+
     <script type="module">
 
       describe('<morph-sidebar>', function() {
@@ -98,6 +104,27 @@
             expect(contentContainerStyle.transform).to.be.equal('matrix(1, 0, 0, 1, 260, 0)');
           });
 
+
+        });
+
+        // test for when open is true correct css are rendered
+        context('Non mobile (ios or android)', function () {
+          // declare variable for sidebar fixture in this context only and declare style variable for this fixture
+          let sidebar, style, contentContainerStyle;
+
+          // assigning sidebar fixture. This will be remove automatically on the teardown phase of this test context
+          beforeEach(function () {
+            sidebar = fixture('nonMobileSidebarFixture');
+            // getting the computed style from the shadow DOM
+            let contentContainerDiv = sidebar.root.querySelector('#contentContainer');
+            contentContainerStyle = getComputedStyle(contentContainerDiv);
+          });
+
+          it('Will get correct transition duration for web', function () {
+            // checking correct 2d transform matrix is applied on open
+            // expect(sidebar.hasAttribute('opened')).to.be.equal(true);
+            expect(sidebar.transitionDuration).to.be.equal(200);
+          });
 
         });
 
