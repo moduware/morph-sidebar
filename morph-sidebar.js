@@ -1,8 +1,9 @@
 import { MorphElement} from '@moduware/morph-element/morph-element.js';
 import '@polymer/app-layout/app-drawer/app-drawer.js';
-import '@polymer/app-layout/app-layout.js';
-import '@polymer/polymer/lib/utils/render-status.js';
 import { DomModule } from '@polymer/polymer/lib/elements/dom-module.js';
+
+// import '@polymer/app-layout/app-layout.js';
+// import '@polymer/polymer/lib/utils/render-status.js';
 
 var $_documentContainer = document.createElement('template');
 
