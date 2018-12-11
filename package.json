@@ -12,16 +12,15 @@
   "main": "morph-sidebar.js",
   "license": "Apache-2.0",
   "dependencies": {
-    "@polymer/polymer": "^3.0.0",
-    "@polymer/app-layout": "^3.0.0-pre.18",
-    "@moduware/morph-element": "^1.0.0"
+    "@moduware/lit-utils": "^1.0.0",
+    "@polymer/lit-element": "^0.6.4"
   },
   "devDependencies": {
-    "@polymer/iron-demo-helpers": "^3.0.0-pre.18",
-    "wct-browser-legacy": "^1.0.1",
-    "@webcomponents/webcomponentsjs": "^2.0.0",
     "@moduware/morph-button": "^1.0.0",
     "@moduware/morph-view": "^1.0.0",
+    "@polymer/iron-demo-helpers": "^3.0.0-pre.18",
+    "@webcomponents/webcomponentsjs": "^2.2.1",
+    "wct-browser-legacy": "^1.0.1",
     "wct-istanbub": "^0.2.7"
   }
 }
