@@ -6,11 +6,6 @@
 
     <title>morph-sidebar demo</title>
 
-    <script type="module" src="../node_modules/@moduware/morph-button/morph-button.js"></script>
-    <script type="module" src="../node_modules/@moduware/morph-view/morph-view.js"></script>
-    <script type="module" src="../node_modules/@polymer/app-layout/app-layout.js"></script>
-    <script type="module" src="../node_modules/@polymer/app-layout/app-header-layout/app-header-layout.js"></script>
-    <script type="module" src="../node_modules/@polymer/app-layout/app-header/app-header.js"></script>
     <script type="module" src="../morph-sidebar.js"></script>
 
     <style>
@@ -37,59 +32,29 @@
   </head>
   <body>
 
-    <app-drawer-layout fullbleed force-narrow>
 
-      <morph-sidebar slot="drawer" align="left" swipe-open>
-        <p>Left morph-sidebar</p>
-        <p>Simulated with cover animation and shadow for android. And no shadow if iOS.</p>
-      </morph-sidebar>
-
-
-      <app-header-layout>
-        <app-header slot="header">
-          <app-toolbar>
-            <div main-tittle>Morph-sidebar demo</div>
-          </app-toolbar>
-        </app-header>
-      </app-header-layout>
-
-      <div>
-        <h4 drawer-toggle>Toggle Left Sidebar</h4>
-      </div>
-
-      <app-drawer-layout force-narrow>
-
-        <morph-sidebar id="rightSidebar" slot="drawer" align="right" swipe-open transition-duration-ios="500">
-          <p>Right morph-sidebar</p>
-          <p>Simulated with cover animation and shadow for android. And no shadow if iOS.</p>
-          <p>This sidebar animation duration is change to 500</p>
-        </morph-sidebar>
-
-        <div>
-          <h4 onclick="toggleDrawer('right')">Toggle Right Sidebar</h2>
-        </div>
-
-      </app-drawer-layout>
-
-    </app-drawer-layout>
+    <morph-sidebar align="left" swipe-open opened>
+      <p>Left morph-sidebar</p>
+      <p>Simulated with cover animation and shadow for android. And no shadow if iOS.</p>
+    </morph-sidebar>
 
 
     <script type="module">
       var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
 
-      window.onload = function() {
-        let drawerLayout = document.getElementsByTagName("APP-DRAWER-LAYOUT")[0];
-
-        if(iOS == true) {
-          drawerLayout.setAttribute("class", "iOS-device");
-        }
-
-      }
-
-      window.toggleDrawer = function (name) {
-        var drawer = document.getElementById(name + 'Sidebar');
-        drawer.toggle();
-      };
+//      window.onload = function() {
+//        let drawerLayout = document.getElementsByTagName("APP-DRAWER-LAYOUT")[0];
+//
+//        if(iOS == true) {
+//          drawerLayout.setAttribute("class", "iOS-device");
+//        }
+//
+//      }
+//
+//      window.toggleDrawer = function (name) {
+//        var drawer = document.getElementById(name + 'Sidebar');
+//        drawer.toggle();
+//      };
     </script>
 
   </body>
