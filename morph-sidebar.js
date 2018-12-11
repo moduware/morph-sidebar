@@ -1,119 +1,93 @@
-import { MorphElement} from '@moduware/morph-element/morph-element.js';
-import '@polymer/app-layout/app-drawer/app-drawer.js';
-import { DomModule } from '@polymer/polymer/lib/elements/dom-module.js';
-
-// import '@polymer/app-layout/app-layout.js';
-// import '@polymer/polymer/lib/utils/render-status.js';
-
-var $_documentContainer = document.createElement('template');
-
-$_documentContainer.innerHTML = /*html*/`
-<dom-module id="morph-sidebar">
-  <template id="styles">
-    <style>
-
-      :host {
-        --app-drawer-width: 260px;
-
-        --morph-sidebar-scrim-background-android: rgba(0, 0, 0, 0.2);
-        --morph-sidebar-scrim-background-ios: rgba(0, 0, 0, 0);
-
-      }
-
-      :host([platform="ios"]) #scrim {
-        --app-drawer-scrim-background: var(--custom-ios-scrim-background, var(--morph-sidebar-scrim-background-ios));
-      }
-
-      :host([platform="android"]) #scrim {
-        --app-drawer-scrim-background: var(--morph-sidebar-scrim-background-android);
-      }
-
-      :host([platform="android"][opened]) #contentContainer {
-        box-shadow: 0 0 20px rgba(0,0,0,.5);
-      }
-
-    </style>
-
-  </template>
-
-  
-</dom-module>
-`;
-
-document.head.appendChild($_documentContainer.content);
-
-var subTemplate;
-var AppDrawerSuperClass = customElements.get('app-drawer');
+import { LitElement, html } from '@polymer/lit-element';
+import * as Gestures from '@polymer/polymer/lib/utils/gestures';
+import { getPlatform } from '@moduware/lit-utils';
 
 /**
- * `morph-sidebar`
- * A navigation drawer that can slide in from the left or right and that morphs for current mobile OS
- *
- * @customElement
- * @polymer
- * @demo morph-sidebar/demo/index.html
+ * @extends HTMLElement
  */
-class MorphSidebar extends MorphElement(AppDrawerSuperClass) {
+export class MorphSidebar extends LitElement { 
+  /** 
+   *  Object describing property-related metadata used by Polymer features
+   */
   static get properties() {
     return {
-      transitionDuration: {
-        type: Number,
-        computed: 'computedTransitionDuration(platform)'
+      /** Indicates if device or platform OS is Android or IOS */
+      platform: {
+        type: String,
+        reflect: true
       },
-      transitionDurationAndroid: {
-        type: Number,
-        value: 300
-      },
-      transitionDurationIos: {
-        type: Number,
-        value: 400
-      },
-      transitionDurationWeb: {
-        type: Number,
-        value: 200
-      }
+
+      opened: Boolean
     };
   }
 
-  /**
-   * This will return our template inherited from superclass <app-drawer> with our styles inserted
-   */      
-  static get template() {
-    if (!subTemplate) {
-      // first clone our superclass <app-drawer> template
-      let superClass = customElements.get('app-drawer');
-      subTemplate = superClass.template.cloneNode(true);
-
-      // here we will get the content of our <style> so we can insert them into the superclass <style>
-      // note the added id="styles" in our template tag above
-      const subStyle = DomModule.import('morph-sidebar', 'template#styles').content;
-
-      // get the content of current style from superClass
-      const superStyle = subTemplate.content.querySelector('style');
-
-      // append our added style at the bottom of the current style to get higher priority
-      superStyle.parentNode.appendChild(subStyle);
+  firstUpdated() {
+    super.firstUpdated();
+    
+    if (!this.hasAttribute('platform')) {
+      this.platform = getPlatform();
     }
-    return subTemplate;
+
+    Gestures.addListener(this, 'track', this.handleTrack.bind(this));
+    this.$container = this.shadowRoot.getElementById('container');
   }
 
-
-  /**
-   * computedTransitionDuration - Sets the transition duration based on the platform.
-   *
-   * @param  {String} platform current platform
-   * @return {Number}          returns the appropriate transitionDuration based on platform
-   */
-  computedTransitionDuration(platform) {
-    if(platform == "android") {
-      return this.transitionDurationAndroid;
-    } else if(platform == "ios") {
-      return this.transitionDurationIos;
-    } else {
-      return this.transitionDurationWeb;
+  handleTrack(e) {
+    console.log(e.detail);
+    if(e.detail.state == 'start') {
+      this.$container.classList.add('no-transitions');
+    } else if(e.detail.state == 'track') {
+      if(e.detail.dx > 0) return;
+      this.$container.style.transform = `translateX(calc(100% + ${e.detail.dx}px))`; 
+    } else if(e.detail.state == 'end') {
+      this.$container.classList.remove('no-transitions');
+      // FIXME: do we need a wait frame command here?
+      if(e.detail.x < 100) {
+        this.removeAttribute('opened');
+      } else {
+        this.setAttribute('opened','');
+      }
+      this.$container.removeAttribute('style');
     }
   }
 
+  render() {
+    return html`
+      <style>
+      :host {
+        --sidebar-width: 260px;
+
+        display: block;
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        transform: translateX(-100%);
+      }
+      
+      :host .container {
+        background-color: #d5d4ee;
+        position: absolute;
+        top: 0; right: 0;
+        width: var(--sidebar-width); height: 100%;
+        transform: translateX(0);
+        transition: transform 400ms linear;
+        /* TODO: add transition prop here */
+      }
+      :host .container.no-transitions {
+        transition: none;
+      }
+      :host([opened]) .container {
+        transform: translateX(100%);
+      }
+      :host([platform="android"][opened]) .container {
+        box-shadow: 0 0 20px rgba(0,0,0,.5);
+      }
+      </style>
+      <div id="container" class="container">
+        <slot></slot>
+      </div>
+    `;
+  } 
 }
-
+// Register the element with the browser
 customElements.define('morph-sidebar', MorphSidebar);
