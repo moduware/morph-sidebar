@@ -31,13 +31,42 @@ export class MorphSidebar extends LitElement {
     Gestures.addListener(document.body, 'track', this.handleBodyTrack.bind(this));
     Gestures.addListener(this, 'track', this.handleTrack.bind(this));
     this.$container = this.shadowRoot.getElementById('container');
+    this._bodySwipeThresholdAchieved = false;
   }
+
   handleBodyTrack(e) {
     const sidebarSwipeAreaWidth = 50;
     const sidebarSwipeIntensityThreshold = 30;
     if(this.opened) return;
-    if(e.detail.x < sidebarSwipeAreaWidth) return;
-    if(e.detail.dx > sidebarSwipeIntensityThreshold) this.setAttribute('opened', '');
+
+    if(e.detail.state == 'start')
+    {
+      this.$container.classList.add('no-transitions');
+    }
+    else if(e.detail.state == 'end')
+    {
+      this.$container.classList.remove('no-transitions');
+
+      if(this._bodySwipeThresholdAchieved) {
+        this._bodySwipeThresholdAchieved = false;
+        if(e.detail.x < 100) {
+          this.removeAttribute('opened');
+        } else {
+          this.setAttribute('opened','');
+        }
+        this.$container.removeAttribute('style');
+      }
+    }
+    else if(e.detail.state == 'track')
+    {
+      if(e.detail.x < sidebarSwipeAreaWidth && e.detail.dx > sidebarSwipeIntensityThreshold)
+        this._bodySwipeThresholdAchieved = true;
+
+      if(this._bodySwipeThresholdAchieved) {
+        if(e.detail.dx > 260) return;
+        this.$container.style.transform = `translateX(${e.detail.dx}px)`;
+      }
+    }
     console.log(e.detail);
   }
 
