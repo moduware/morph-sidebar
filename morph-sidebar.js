@@ -17,8 +17,19 @@ export class MorphSidebar extends LitElement {
         reflect: true
       },
 
+      /** 
+       * Indicates if the sidebar is open or close
+       * Boolean true or false values
+       */
       opened: Boolean,
-      'body-swipe': Boolean
+
+      /**
+       * Boolean property that when true will allow swipe in the body to open sidebar.
+       */
+      bodySwipe: {
+        type: Boolean,
+        attribute: 'body-swipe'
+      }
     };
   }
 
@@ -40,7 +51,7 @@ export class MorphSidebar extends LitElement {
       this.platform = getPlatform();
     }
 
-    if(this['body-swipe'] != null) {
+    if(this.bodySwipe == true) {
       Gestures.addListener(document.body, 'track', this.handleBodyTrack.bind(this));
     }
     Gestures.addListener(this, 'track', this.handleTrack.bind(this));
