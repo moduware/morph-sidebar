@@ -147,7 +147,7 @@ export class MorphSidebar extends LitElement {
         box-shadow: 0 0 20px rgba(0,0,0,.5);
       }
       </style>
-      <div id="container" class="container">
+      <div id="container" class="container ${opened != null ? 'state-opened' : ''}">
         <slot></slot>
       </div>
     `;
