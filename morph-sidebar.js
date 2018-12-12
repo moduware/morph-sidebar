@@ -17,26 +17,32 @@ export class MorphSidebar extends LitElement {
         reflect: true
       },
 
-      opened: Boolean
+      opened: Boolean,
+      'body-swipe': Boolean
     };
   }
 
   firstUpdated() {
     super.firstUpdated();
+    /* PRIVATE VARIABLES */
+    this.$container = this.shadowRoot.getElementById('container');
+    this._bodySwipeThresholdAchieved = false;
+    this._sidebarSwipeAreaWidth = 50;
+    this._sidebarSwipeIntensityThreshold = 30;
+    this._sidebarPositionOpenThreshold = 100;
+    this._sidebarWidth = 260; // 260 for android
 
     if (!this.hasAttribute('platform')) {
       this.platform = getPlatform();
     }
 
-    Gestures.addListener(document.body, 'track', this.handleBodyTrack.bind(this));
+    if(this['body-swipe'] != null) {
+      Gestures.addListener(document.body, 'track', this.handleBodyTrack.bind(this));
+    }
     Gestures.addListener(this, 'track', this.handleTrack.bind(this));
-    this.$container = this.shadowRoot.getElementById('container');
-    this._bodySwipeThresholdAchieved = false;
   }
 
   handleBodyTrack(e) {
-    const sidebarSwipeAreaWidth = 50;
-    const sidebarSwipeIntensityThreshold = 30;
     if(this.opened) return;
 
     if(e.detail.state == 'start')
@@ -49,7 +55,7 @@ export class MorphSidebar extends LitElement {
 
       if(this._bodySwipeThresholdAchieved) {
         this._bodySwipeThresholdAchieved = false;
-        if(e.detail.x < 100) {
+        if(e.detail.x < this._sidebarPositionOpenThreshold) {
           this.removeAttribute('opened');
         } else {
           this.setAttribute('opened','');
@@ -59,11 +65,11 @@ export class MorphSidebar extends LitElement {
     }
     else if(e.detail.state == 'track')
     {
-      if(e.detail.x < sidebarSwipeAreaWidth && e.detail.dx > sidebarSwipeIntensityThreshold)
+      if(e.detail.x < this._sidebarSwipeAreaWidth && e.detail.dx > this._sidebarSwipeIntensityThreshold)
         this._bodySwipeThresholdAchieved = true;
 
       if(this._bodySwipeThresholdAchieved) {
-        if(e.detail.dx > 260) return;
+        if(e.detail.dx > this._sidebarWidth) return;
         this.$container.style.transform = `translateX(${e.detail.dx}px)`;
       }
     }
@@ -80,7 +86,7 @@ export class MorphSidebar extends LitElement {
     } else if(e.detail.state == 'end') {
       this.$container.classList.remove('no-transitions');
 
-      if(e.detail.x < 100) {
+      if(e.detail.x < this._sidebarPositionOpenThreshold) {
         this.removeAttribute('opened');
       } else {
         this.setAttribute('opened','');
