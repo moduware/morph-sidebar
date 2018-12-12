@@ -52,6 +52,9 @@
       document.getElementById('toggleSidebarButton').addEventListener('click', 
         () => document.getElementById('sidebar').toggleAttribute('opened'));
 
+      document.getElementById('sidebar').addEventListener('opened', () => console.log('sidebar opened!'));
+      document.getElementById('sidebar').addEventListener('closed', () => console.log('sidebar closed!'));
+
 //      window.onload = function() {
 //        let drawerLayout = document.getElementsByTagName("APP-DRAWER-LAYOUT")[0];
 //

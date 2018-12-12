@@ -29,8 +29,12 @@ export class MorphSidebar extends LitElement {
     this._bodySwipeThresholdAchieved = false;
     this._sidebarSwipeAreaWidth = 50;
     this._sidebarSwipeIntensityThreshold = 30;
+    this._sidebarOpenDragThreshold = 8;
     this._sidebarPositionOpenThreshold = 100;
     this._sidebarWidth = 260; // 260 for android
+
+    this._openedEvent = new Event('opened');
+    this._closedEvent = new Event('closed');
 
     if (!this.hasAttribute('platform')) {
       this.platform = getPlatform();
@@ -40,6 +44,20 @@ export class MorphSidebar extends LitElement {
       Gestures.addListener(document.body, 'track', this.handleBodyTrack.bind(this));
     }
     Gestures.addListener(this, 'track', this.handleTrack.bind(this));
+  }
+
+  updated(changedProperties) {
+    super.updated();
+    if(changedProperties.has('opened')) {
+      if(changedProperties.get('opened') != null) {
+        this.dispatchEvent(this._closedEvent);
+      } else {
+        this.dispatchEvent(this._openedEvent);
+      }
+    }
+    // if(this.opened != null && !changedProperties.has('opened')) {
+    //   this.dispatchEvent(this._closedEvent);
+    // }
   }
 
   handleBodyTrack(e) {
@@ -73,16 +91,18 @@ export class MorphSidebar extends LitElement {
         this.$container.style.transform = `translateX(${e.detail.dx}px)`;
       }
     }
-    console.log(e.detail);
   }
 
   handleTrack(e) {
-    console.log(e.detail);
     if(e.detail.state == 'start') {
       this.$container.classList.add('no-transitions');
     } else if(e.detail.state == 'track') {
       if(e.detail.dx > 0) return;
-      this.$container.style.transform = `translateX(calc(100% + ${e.detail.dx}px))`;
+      if(e.detail.dx < -5) {
+        this.$container.style.transform = `translateX(calc(100% + ${e.detail.dx}px))`;
+      } else {
+        this.$container.removeAttribute('style');
+      }
     } else if(e.detail.state == 'end') {
       this.$container.classList.remove('no-transitions');
 
