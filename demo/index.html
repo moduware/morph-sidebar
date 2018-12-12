@@ -27,20 +27,30 @@
         --app-drawer-width: 260px;
       }
 
+      body {
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 8px;
+        box-sizing: border-box;
+      }
+
     </style>
 
   </head>
   <body>
 
 
-    <morph-sidebar align="left" swipe-open opened>
+    <morph-sidebar swipe-open id="sidebar">
       <p>Left morph-sidebar</p>
       <p>Simulated with cover animation and shadow for android. And no shadow if iOS.</p>
     </morph-sidebar>
 
-
+    <div style="text-align: right;"><button id="toggleSidebarButton">Toggle Sidebar</button></div>
     <script type="module">
       var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      document.getElementById('toggleSidebarButton').addEventListener('click', 
+        () => document.getElementById('sidebar').toggleAttribute('opened'));
 
 //      window.onload = function() {
 //        let drawerLayout = document.getElementsByTagName("APP-DRAWER-LAYOUT")[0];

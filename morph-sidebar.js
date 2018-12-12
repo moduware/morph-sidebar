@@ -5,8 +5,8 @@ import { getPlatform } from '@moduware/lit-utils';
 /**
  * @extends HTMLElement
  */
-export class MorphSidebar extends LitElement { 
-  /** 
+export class MorphSidebar extends LitElement {
+  /**
    *  Object describing property-related metadata used by Polymer features
    */
   static get properties() {
@@ -23,13 +23,22 @@ export class MorphSidebar extends LitElement {
 
   firstUpdated() {
     super.firstUpdated();
-    
+
     if (!this.hasAttribute('platform')) {
       this.platform = getPlatform();
     }
 
+    Gestures.addListener(document.body, 'track', this.handleBodyTrack.bind(this));
     Gestures.addListener(this, 'track', this.handleTrack.bind(this));
     this.$container = this.shadowRoot.getElementById('container');
+  }
+  handleBodyTrack(e) {
+    const sidebarSwipeAreaWidth = 50;
+    const sidebarSwipeIntensityThreshold = 30;
+    if(this.opened) return;
+    if(e.detail.x < sidebarSwipeAreaWidth) return;
+    if(e.detail.dx > sidebarSwipeIntensityThreshold) this.setAttribute('opened', '');
+    console.log(e.detail);
   }
 
   handleTrack(e) {
@@ -38,10 +47,10 @@ export class MorphSidebar extends LitElement {
       this.$container.classList.add('no-transitions');
     } else if(e.detail.state == 'track') {
       if(e.detail.dx > 0) return;
-      this.$container.style.transform = `translateX(calc(100% + ${e.detail.dx}px))`; 
+      this.$container.style.transform = `translateX(calc(100% + ${e.detail.dx}px))`;
     } else if(e.detail.state == 'end') {
       this.$container.classList.remove('no-transitions');
-      // FIXME: do we need a wait frame command here?
+
       if(e.detail.x < 100) {
         this.removeAttribute('opened');
       } else {
@@ -63,7 +72,7 @@ export class MorphSidebar extends LitElement {
         width: 100%; height: 100%;
         transform: translateX(-100%);
       }
-      
+
       :host .container {
         background-color: #d5d4ee;
         position: absolute;
@@ -87,7 +96,7 @@ export class MorphSidebar extends LitElement {
         <slot></slot>
       </div>
     `;
-  } 
+  }
 }
 // Register the element with the browser
 customElements.define('morph-sidebar', MorphSidebar);
