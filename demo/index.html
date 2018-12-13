@@ -35,6 +35,18 @@
         box-sizing: border-box;
       }
 
+      .demo-overlay {
+        background-color: rgba(0,0,0, 0.2);
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+      }
+
+      .demo-overlay:not(.demo-overlay--visible) {
+        opacity: 0;
+        pointer-events: none;
+      }
+
     </style>
 
   </head>
@@ -47,13 +59,26 @@
     </morph-sidebar>
 
     <div style="text-align: right;"><button id="toggleSidebarButton">Toggle Sidebar</button></div>
+
+    <div class="demo-overlay" id="overlay"></div>
     <script type="module">
       var iOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+      var $sidebar = document.getElementById('sidebar');
       document.getElementById('toggleSidebarButton').addEventListener('click', 
-        () => document.getElementById('sidebar').toggleAttribute('opened'));
+        () => $sidebar.toggleAttribute('opened'));
 
-      document.getElementById('sidebar').addEventListener('opened', () => console.log('sidebar opened!'));
-      document.getElementById('sidebar').addEventListener('closed', () => console.log('sidebar closed!'));
+      var $overlay = document.getElementById('overlay');
+      $overlay.addEventListener('click', () => $sidebar.removeAttribute('opened'));
+
+
+      $sidebar.addEventListener('opened', () => {
+        console.log('sidebar opened!');
+        $overlay.classList.add('demo-overlay--visible');
+      });
+      $sidebar.addEventListener('closed', () => {
+        console.log('sidebar closed!');
+        $overlay.classList.remove('demo-overlay--visible');
+      });
 
 //      window.onload = function() {
 //        let drawerLayout = document.getElementsByTagName("APP-DRAWER-LAYOUT")[0];

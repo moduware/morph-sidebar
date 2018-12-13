@@ -17,7 +17,7 @@ export class MorphSidebar extends LitElement {
         reflect: true
       },
 
-      /** 
+      /**
        * Indicates if the sidebar is open or close
        * Boolean true or false values
        */
@@ -134,6 +134,7 @@ export class MorphSidebar extends LitElement {
         --sidebar-width: 260px;
 
         display: block;
+        z-index: 1000;
         position: absolute;
         top: 0; left: 0;
         width: 100%; height: 100%;
@@ -159,7 +160,7 @@ export class MorphSidebar extends LitElement {
       }
       :host([platform="android"]) .container.state-opened {
         box-shadow: 0 0 20px rgba(0,0,0,.5);
-      }      
+      }
 
 
       /*
