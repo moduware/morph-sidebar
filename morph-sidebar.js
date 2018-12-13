@@ -28,7 +28,7 @@ export class MorphSidebar extends LitElement {
        */
       bodySwipe: {
         type: Boolean,
-        attribute: 'body-swipe'
+        attribute: 'body-swipe' // without this, the 'bodySwipe' boolean property will map to lower case 'bodyswipe' attribute
       }
     };
   }
@@ -47,6 +47,8 @@ export class MorphSidebar extends LitElement {
     this._openedEvent = new Event('opened');
     this._closedEvent = new Event('closed');
 
+    // this.opened = false;
+
     if (!this.hasAttribute('platform')) {
       this.platform = getPlatform();
     }
@@ -60,15 +62,14 @@ export class MorphSidebar extends LitElement {
   updated(changedProperties) {
     super.updated();
     if(changedProperties.has('opened')) {
-      if(changedProperties.get('opened') != null) {
+      // value of changedProperties properties map for is the previous value of the property not the new value of property after the change
+      // for boolean type property, value in changed property when it is true or present is null or empty string ""
+      if (changedProperties.get('opened') != null) {
         this.dispatchEvent(this._closedEvent);
       } else {
         this.dispatchEvent(this._openedEvent);
       }
     }
-    // if(this.opened != null && !changedProperties.has('opened')) {
-    //   this.dispatchEvent(this._closedEvent);
-    // }
   }
 
   handleBodyTrack(e) {
@@ -151,16 +152,30 @@ export class MorphSidebar extends LitElement {
       :host .container.no-transitions {
         transition: none;
       }
+
+      /* using state-opened class */
+      :host .container.state-opened {
+        transform: translateX(100%);
+      }
+      :host([platform="android"]) .container.state-opened {
+        box-shadow: 0 0 20px rgba(0,0,0,.5);
+      }      
+
+
+      /*
       :host([opened]) .container {
         transform: translateX(100%);
       }
       :host([platform="android"][opened]) .container {
         box-shadow: 0 0 20px rgba(0,0,0,.5);
       }
+      */
+
       </style>
-      <div id="container" class="container ${opened != null ? 'state-opened' : ''}">
+      <div id="container" class="container ${this.opened != null ? 'state-opened' : ''}">
         <slot></slot>
       </div>
+
     `;
   }
 }

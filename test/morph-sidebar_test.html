@@ -15,33 +15,34 @@
 
     <test-fixture id="sidebarFixture">
       <template>
-        <morph-sidebar platform="android"></morph-sidebar>
+        <morph-sidebar platform="android" body-swipe ></morph-sidebar>
       </template>
     </test-fixture>
-
-    <test-fixture id="rightSidebarFixture">
-      <template>
-        <morph-sidebar align="right" platform="android"></morph-sidebar>
-      </template>
-    </test-fixture>
-
-    <test-fixture id="openSidebarFixture">
-      <template>
-        <morph-sidebar opened align="right" platform="ios"></morph-sidebar>
-      </template>
-    </test-fixture>
-
-    <test-fixture id="nonMobileSidebarFixture">
-      <template>
-        <morph-sidebar opened align="left" platform="unknown"></morph-sidebar>
-      </template>
-    </test-fixture>
+    <!-- 
+      <test-fixture id="rightSidebarFixture">
+        <template>
+          <morph-sidebar align="right" platform="android"></morph-sidebar>
+        </template>
+      </test-fixture>
+  
+      <test-fixture id="openSidebarFixture">
+        <template>
+          <morph-sidebar opened align="right" platform="ios"></morph-sidebar>
+        </template>
+      </test-fixture>
+  
+      <test-fixture id="nonMobileSidebarFixture">
+        <template>
+          <morph-sidebar opened align="left" platform="unknown"></morph-sidebar>
+        </template>
+      </test-fixture>
+     -->
 
     <script type="module">
 
       describe('<morph-sidebar>', function() {
         // testing for default properties present
-        context('Default Sidebar Property Test', function() {
+        context.only('Sidebar Property bodySwipe maps correctly in html markup using attribute body-swipe', function() {
           // declare variable for sidebar in this context only
           let sidebar, style;
           // assigning side fixture for this context. This will automatically removed on the teardown phase of this test context
@@ -50,13 +51,43 @@
             style = getComputedStyle(sidebar);
           });
 
-          it('instantiating the sidebar reflects default properties', function() {
-            expect(sidebar).to.be.ok;
-            expect(sidebar.align).to.be.equal('left');
-            expect(sidebar.opened).to.be.false;
+          it('bodySwipe maps correctly in html markup using attribute body-swipe', async function() {
+            await sidebar.updateComplete;
+            
+            expect(sidebar.bodySwipe).to.be.true;
+          });
+
+          it('container div does NOT have state-opened class by default', async () => {
+            await sidebar.updateComplete;
+
+            const sidebarShadow = sidebar.shadowRoot;
+            const container = sidebarShadow.querySelector('#container');
+
+            expect(container.classList.contains('state-opened')).to.be.false;
+          });
+
+          it('changing opened to true will add state-opened class', async () => {
+            await sidebar.updateComplete;
+
+            const sidebarShadow = sidebar.shadowRoot;
+            const container = sidebarShadow.querySelector('#container');
+            sidebar.opened = true;
+
+            await sidebar.updateComplete;
+            expect(container.classList.contains('state-opened')).to.be.true;
           });
 
         });
+
+
+
+
+
+
+
+
+
+        
 
         // testing for setting side property reflects correctly
         context('Set Sidebar property align = right', function() {
