@@ -7,13 +7,14 @@
     "url": "https://github.com/moduware/morph-sidebar"
   },
   "scripts": {
-    "start": "polymer serve --npm --module-resolution=node"
+    "start": "polymer serve --npm --module-resolution=node",
+    "test": "wct"
   },
   "main": "morph-sidebar.js",
   "license": "Apache-2.0",
   "dependencies": {
     "@moduware/lit-utils": "^1.0.0",
-    "@polymer/lit-element": "^0.6.4"
+    "lit-element": "^2.0.0-rc.3"
   },
   "devDependencies": {
     "@moduware/morph-button": "^1.0.0",
