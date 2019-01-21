@@ -1,4 +1,4 @@
-import { LitElement, html } from '@polymer/lit-element';
+import { LitElement, html } from 'lit-element';
 import * as Gestures from '@polymer/polymer/lib/utils/gestures';
 import { getPlatform } from '@moduware/lit-utils';
 
@@ -61,6 +61,7 @@ export class MorphSidebar extends LitElement {
 
   updated(changedProperties) {
     super.updated();
+    // when changedProperties contains opened we check for previous value to dispatch open/close events
     if(changedProperties.has('opened')) {
       // value of changedProperties properties map for is the previous value of the property not the new value of property after the change
       // for boolean type property, value in changed property when it is true or present is null or empty string ""
@@ -142,7 +143,7 @@ export class MorphSidebar extends LitElement {
       }
 
       :host .container {
-        background-color: #d5d4ee;
+        background-color: #fff;
         position: absolute;
         top: 0; right: 0;
         width: var(--sidebar-width); height: 100%;
@@ -158,8 +159,26 @@ export class MorphSidebar extends LitElement {
       :host .container.state-opened {
         transform: translateX(100%);
       }
+
       :host([platform="android"]) .container.state-opened {
-        box-shadow: 0 0 20px rgba(0,0,0,.5);
+        /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); */
+      }
+
+     :host([platform="android"]) .container::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        transition: opacity 400ms linear;
+      }
+
+      :host([platform="android"]) .container.state-opened::after {
+        opacity: 1;
       }
 
 
