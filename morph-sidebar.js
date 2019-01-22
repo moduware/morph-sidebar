@@ -63,6 +63,8 @@ export class MorphSidebar extends LitElement {
     super.updated();
     // when changedProperties contains opened we check for previous value to dispatch open/close events
     if(changedProperties.has('opened')) {
+      // opened-changed event fires every time this.opened changes its values
+      this.dispatchEvent(new Event('opened-changed'));
       // value of changedProperties properties map for is the previous value of the property not the new value of property after the change
       // for boolean type property, value in changed property when it is true or present is null or empty string ""
       if (changedProperties.get('opened') != null) {
