@@ -6,6 +6,78 @@ import { getPlatform } from '@moduware/lit-utils';
  * @extends HTMLElement
  */
 export class MorphSidebar extends LitElement {
+  render() {
+    return html`
+      <style>
+      :host {
+        --sidebar-width: 260px;
+
+        display: block;
+        z-index: 1000;
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        transform: translateX(-100%);
+      }
+
+      :host .container {
+        background-color: #fff;
+        position: absolute;
+        top: 0; right: 0;
+        width: var(--sidebar-width); height: 100%;
+        transform: translateX(0);
+        transition: transform 400ms linear;
+        /* TODO: add transition prop here */
+      }
+      :host .container.no-transitions {
+        transition: none;
+      }
+
+      /* using state-opened class */
+      :host .container.state-opened {
+        transform: translateX(100%);
+      }
+
+      :host([platform="android"]) .container.state-opened {
+        /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); */
+      }
+
+     :host([platform="android"]) .container::after {
+        content: '';
+        position: absolute;
+        z-index: -1;
+        top: 0;
+        right: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+        transition: opacity 400ms linear;
+      }
+
+      :host([platform="android"]) .container.state-opened::after {
+        opacity: 1;
+      }
+
+
+      /*
+      :host([opened]) .container {
+        transform: translateX(100%);
+      }
+      :host([platform="android"][opened]) .container {
+        box-shadow: 0 0 20px rgba(0,0,0,.5);
+      }
+      */
+
+      </style>
+      <div id="container" class="container ${this.opened != null ? 'state-opened' : ''}">
+        <slot></slot>
+      </div>
+
+    `;
+  }  
+
+
   /**
    *  Object describing property-related metadata used by Polymer features
    */
@@ -132,76 +204,6 @@ export class MorphSidebar extends LitElement {
     }
   }
 
-  render() {
-    return html`
-      <style>
-      :host {
-        --sidebar-width: 260px;
-
-        display: block;
-        z-index: 1000;
-        position: absolute;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        transform: translateX(-100%);
-      }
-
-      :host .container {
-        background-color: #fff;
-        position: absolute;
-        top: 0; right: 0;
-        width: var(--sidebar-width); height: 100%;
-        transform: translateX(0);
-        transition: transform 400ms linear;
-        /* TODO: add transition prop here */
-      }
-      :host .container.no-transitions {
-        transition: none;
-      }
-
-      /* using state-opened class */
-      :host .container.state-opened {
-        transform: translateX(100%);
-      }
-
-      :host([platform="android"]) .container.state-opened {
-        /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); */
-      }
-
-     :host([platform="android"]) .container::after {
-        content: '';
-        position: absolute;
-        z-index: -1;
-        top: 0;
-        right: 0;
-        width: 100%;
-        height: 100%;
-        opacity: 0;
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
-        transition: opacity 400ms linear;
-      }
-
-      :host([platform="android"]) .container.state-opened::after {
-        opacity: 1;
-      }
-
-
-      /*
-      :host([opened]) .container {
-        transform: translateX(100%);
-      }
-      :host([platform="android"][opened]) .container {
-        box-shadow: 0 0 20px rgba(0,0,0,.5);
-      }
-      */
-
-      </style>
-      <div id="container" class="container ${this.opened != null ? 'state-opened' : ''}">
-        <slot></slot>
-      </div>
-
-    `;
-  }
 }
 // Register the element with the browser
 customElements.define('morph-sidebar', MorphSidebar);
