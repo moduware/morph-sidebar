@@ -92,6 +92,7 @@ export class MorphSidebar extends LitElement {
           this.removeAttribute('opened');
         } else {
           this.setAttribute('opened','');
+          this.dispatchEvent(new Event('swipe-opened'));
         }
         this.$container.removeAttribute('style');
       }
@@ -123,6 +124,7 @@ export class MorphSidebar extends LitElement {
 
       if(e.detail.x < this._sidebarPositionOpenThreshold) {
         this.removeAttribute('opened');
+        this.dispatchEvent(new Event('swipe-closed'));
       } else {
         this.setAttribute('opened','');
       }
