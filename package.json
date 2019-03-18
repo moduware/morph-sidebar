@@ -14,7 +14,7 @@
   "license": "Apache-2.0",
   "dependencies": {
     "@moduware/lit-utils": "^1.0.0",
-    "lit-element": "^2.0.0-rc.3"
+    "lit-element": "^2.0.1"
   },
   "devDependencies": {
     "@moduware/morph-button": "^1.0.0",
